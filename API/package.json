@@ -5,7 +5,11 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node main.js"
+    "start_local": "node main.js",
+    "build_image": "docker build . -t jeppemaldr/plantapi:latest",
+    "push_image": "docker push jeppemaldr/plantapi:latest",
+    "start": "docker compose up -d",
+    "start_attached": "docker compose up"
   },
   "author": "",
   "license": "ISC",
