@@ -6,12 +6,14 @@ services:
       - '3000:3000'
     depends_on:
       - db
+    network_mode: host
   db:
     image: postgres:latest
     restart: always
     environment:
       - POSTGRES_USER=api
       - POSTGRES_PASSWORD=pass
+      - DB_HOST=docker.host.internal
     ports:
       - '4321:5432'
     volumes:
