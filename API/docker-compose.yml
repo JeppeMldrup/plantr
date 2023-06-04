@@ -1,5 +1,21 @@
+version: '3.8'
 services:
   api:
     image: jeppemaldr/plantapi:latest
     ports:
-      - "3000:3000"
+      - '3000:3000'
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=api
+      - POSTGRES_PASSWORD=pass
+    ports:
+      - '4321:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local
