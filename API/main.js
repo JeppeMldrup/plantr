@@ -17,7 +17,27 @@ app.get('/', (req, res) => {
     res.send('Hello');
 });
 
+app.get('/getoverview', (req, res) => {
+    res.send('Hello');
+});
+
+app.get('/getplant', (req, res) => {
+    res.send('Hello');
+});
+
 app.post('/newplant', (req, res) => {
+    let data = req.body;
+    console.log(data);
+    res.json(req.body);
+});
+
+app.post('/newharvest', (req, res) => {
+    let data = req.body;
+    console.log(data);
+    res.json(req.body);
+});
+
+app.post('/auth/google', (req, res) => {
     let data = req.body;
     console.log(data);
     res.json(req.body);
