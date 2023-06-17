@@ -2,6 +2,7 @@ import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { getServerSession } from 'next-auth';
 import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 export const authOptions = {
     providers: [
@@ -15,14 +16,27 @@ export const authOptions = {
     },
 };
 
-export async function getLoginSessionServer(){
-    const session = await getServerSession(authOptions);
-    console.log("FUNCTION CALLED");
-    console.log(session);
+export async function getLoginSession(){
+    let session;
+    try{
+        [session] = await Promise.allSettled([getServerSession(authOptions)]);
+    }
+    catch(e){
+        console.log(e);
+    }
     return session;
 }
 
-export async function getLoginSession(){
-    const { data: session} = useSession();
-    return session;
+export async function redirectToLogin(){
+    let session
+    try {
+        session = await getLoginSession();
+    }
+    catch(e){
+        redirect('/');
+    }
+    if (session?.value?.user){
+        return false;
+    }
+    redirect('/');
 }

@@ -3,11 +3,12 @@ import { authOptions, getLoginSessionServer } from '@/lib/auth';
 import { getServerSession } from 'next-auth/next';
 import { redirect } from 'next/navigation';
 import { LoginButton } from '@/components/buttons.component';
+import { getLoginSession } from '@/lib/auth';
 
 export default async function Home() {
     let session;
     try{
-        [session] = await Promise.allSettled([getServerSession(authOptions)]);
+        session = await getLoginSession(authOptions);
     }
     catch(e){
         console.log(e);
@@ -25,10 +26,4 @@ export default async function Home() {
         </div>
         </>
     )
-}
-
-async function getLoginSession(){
-    const session = await getServerSession(authOptions);
-    console.log(session);
-    return session;
 }
