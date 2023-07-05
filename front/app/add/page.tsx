@@ -1,5 +1,5 @@
 import { redirectToLogin, getLoginSession } from '@/lib/auth';
-import { AddEntryButton } from '../buttons.component';
+import { AddEntryButton } from './buttons.component';
 
 export default async function Add(){
     await redirectToLogin();
@@ -12,7 +12,7 @@ export default async function Add(){
 
     return (
         <>
-        <main class="w-screen h-screen flex flex-col">
+        <main class="w-screen h-screen">
         <p>Nice</p>
         <AddEntryButton />
         </main>
