@@ -2,7 +2,7 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import { authOptions, getLoginSessionServer } from '@/lib/auth';
 import { getServerSession } from 'next-auth/next';
 import { redirect } from 'next/navigation';
-import { LoginButton } from 'buttons.component';
+import { LoginButton } from './buttons.component';
 import { getLoginSession } from '@/lib/auth';
 
 export default async function Home() {
