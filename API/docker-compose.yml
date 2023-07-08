@@ -1,12 +1,5 @@
 version: '3.8'
 services:
-  api:
-    image: jeppemaldr/plantapi:latest
-    ports:
-      - '3000:3000'
-    depends_on:
-      - db
-    network_mode: host
   db:
     image: postgres:latest
     restart: always
