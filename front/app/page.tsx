@@ -10,7 +10,7 @@ export default async function Home() {
     let session;
     try{
         session = await getLoginSession(authOptions);
-        const query = "INSERT INTO users(email, garden_id) VALUES ('" + session.value.user.email + "', null)";
+        const query = "INSERT INTO users(email, garden_id) VALUES ('" + session.value.user.email + "', null) ON CONFLICT DO NOTHING";
         const result = conn.query(query);
     }
     catch(e){
