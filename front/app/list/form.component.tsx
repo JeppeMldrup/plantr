@@ -31,9 +31,25 @@ export const GardenInviteJoin = () => {
 }
 
 export const InviteButton = () => {
+    const [isGenerated, setIsGenerated] = useState(false);
+    const [inviteCode, setInviteCode] = useState("");
+
+    const handleGenerateInvite = async () => {
+        const res = await fetch('/api/joingarden');
+        const code = await res.json();
+        setIsGenerated(true);
+        console.log(code.code);
+        setInviteCode(code.code);
+    }
+
     return (
         <>
-        <p>InviteButton</p>
+        <button onClick={() => handleGenerateInvite()}>Invite to garden</button>
+        {isGenerated ? (
+            <div>
+                <p>{inviteCode}</p>
+            </div>
+        ) : null}
         </>
     );
 }

@@ -38,15 +38,6 @@ export default async function List(){
     )
 }
 
-function makeCode(length) {
-    let result = '';
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < length; i++){
-        result += chars.charAt(Math.floor(Math.random() *  chars.length));
-    }
-    return result;
-}
-
 async function getGardenId(email){
     const query = "SELECT g.garden_id, g.name FROM users as u join garden as g on u.garden_id = g.garden_id WHERE u.email = '" + email + "'";
     const result = await conn.query(query);
