@@ -23,7 +23,7 @@ export async function POST(request: NextRequest){
     query = "DELETE FROM invite WHERE invite_code = $1"
     values = [params.get('code')];
 
-    result = pool.query(query, values);
+    result = await pool.query(query, values);
 
     query = "UPDATE users SET garden_id = $1 where email = $2"
     values = [id, session.value.user.email];
@@ -32,3 +32,48 @@ export async function POST(request: NextRequest){
 
     return NextResponse.json({status: 200});
 }
+
+export async function GET(request: NextRequest){
+    const session = await getLoginSession(authOptions);
+
+    if(!session?.value.user.email){
+        console.log("Cannot generate invite link without being logged in");
+        return NextResponse.status(404);
+    }
+
+    let query = 'SELECT g.garden_id FROM users AS u JOIN garden AS g ON u.garden_id = g.garden_id WHERE u.email = $1';
+    let values = [session.value.user.email];
+
+    let result = await pool.query(query, values);
+
+    console.log(result);
+
+    /*
+    if (!result.rows[0]){
+        console.log("Cannot generate invite link without having a garden");
+        return NextResponse.status(404);
+    }
+    */
+
+    let code = makeCode(6);
+    let id = result.rows[0].garden_id;
+
+    console.log(code, id);
+
+    query = 'INSERT INTO invite VALUES ($1, $2)';
+    values = [code, id];
+
+    result = await pool.query(query, values);
+
+    return NextResponse.json({"code": code});
+}
+
+function makeCode(length) {
+    let result = '';
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < length; i++){
+        result += chars.charAt(Math.floor(Math.random() *  chars.length));
+    }
+    return result;
+}
+
