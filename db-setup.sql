@@ -3,6 +3,12 @@ create table if not exists garden (
   name varchar ( 255 )
 );
 
+create table if not exists invite (
+  invite_code varchar (6) primary key,
+  garden_id int,
+  foreign key (garden_id) references garden(garden_id)
+);
+
 create table if not exists users (
   user_id int generated always as identity primary key,
   email varchar ( 255 ) unique not null,
