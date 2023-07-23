@@ -4,15 +4,13 @@ import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-export const AddEntryButton = () => {
+export const AddEntryButton = (props) => {
     const [startDate, setStartDate] = useState(new Date());
     const [dropDown, setDropDown] = useState(false);
 
-    const veggies = [
-            {"name": "cucumber"},
-            {"name": "tomato"},
-            {"name": "Courgette"}
-        ]
+    const plants = props.plantList;
+
+    console.log(plants);
 
     const clickHandler = () => {
         let thing = fetch('/api/add?thing=nice', {method: "POST"});
@@ -30,7 +28,7 @@ export const AddEntryButton = () => {
         <button onClick={() => setDropDown(!dropDown)}>Select vegetable</button>
         {dropDown ? (
            <div>
-           {veggies.map((veg) => <p>{veg.name}</p>)}
+           {plants.map((veg) => <p>{veg.name}</p>)}
            </div>
         ) : null}
         </div>
