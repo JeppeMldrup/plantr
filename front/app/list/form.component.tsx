@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from 'react';
+import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export const GardenCreationForm = () => {
     const [gardenName, setGardenName] = useState("");
@@ -54,8 +56,16 @@ export const InviteButton = () => {
     );
 }
 
+export const AddVegButton = () => {
+    const router = useRouter();
+    return (
+        <>
+        <button onClick={() => router.push('/addveg')}>Add plant to garden</button>
+        </>
+    );
+}
+
 const handleGardenCreation = (gardenName) => {
-    console.log(gardenName, userName);
     fetch('/api/garden?name=' + gardenName, {
             method: "POST"
         });
