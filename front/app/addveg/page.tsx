@@ -12,7 +12,7 @@ export default async function Add(){
 
     return (
         <>
-        <main class="w-screen h-screen">
+        <main className="w-screen h-screen">
         <p>Nice</p>
         <AddVegButton />
         </main>

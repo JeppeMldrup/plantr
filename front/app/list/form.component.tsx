@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from 'react';
-import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
 export const GardenCreationForm = () => {
@@ -9,7 +8,7 @@ export const GardenCreationForm = () => {
 
     return (
         <>
-        <div class="gardenForm">
+        <div className="gardenForm">
         <p>Input name for your garden</p>
         <input type="text" value={gardenName} onChange={(event) => setGardenName(event.target.value)} />
         <button onClick={() => handleGardenCreation(gardenName)} >SUBMIT</button>
@@ -23,7 +22,7 @@ export const GardenInviteJoin = () => {
 
     return (
         <>
-        <div class="InvitationForm">
+        <div className="InvitationForm">
         <p>Input invite code to join existing garden</p>
         <input type="text" value={gardenCode} onChange={(event) => setGardenCode(event.target.value)} />
         <button onClick={() => handleJoinGarden(gardenCode)} >SUBMIT</button>
@@ -65,13 +64,13 @@ export const AddVegButton = () => {
     );
 }
 
-const handleGardenCreation = (gardenName) => {
+const handleGardenCreation = (gardenName: String) => {
     fetch('/api/garden?name=' + gardenName, {
             method: "POST"
         });
 }
 
-const handleJoinGarden = (gardenCode) => {
+const handleJoinGarden = (gardenCode: String) => {
     console.log(gardenCode);
     fetch('/api/joingarden?code=' + gardenCode, {
         method: "POST"

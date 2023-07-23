@@ -1,14 +1,12 @@
-import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import { getServerSession } from 'next-auth';
-import { useSession } from 'next-auth/react';
+import { NextAuthOptions, getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
     providers: [
         GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            clientId: process.env.GOOGLE_CLIENT_ID ? process.env.GOOGLE_CLIENT_ID : "empty",
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET ? process.env.GOOGLE_CLIENT_SECRET : "empty",
         }),
     ],
     session: {
@@ -35,7 +33,7 @@ export async function redirectToLogin(){
     catch(e){
         redirect('/');
     }
-    if (session?.value?.user){
+    if (session?.status == "fulfilled" && session.value?.user){
         return false;
     }
     redirect('/');

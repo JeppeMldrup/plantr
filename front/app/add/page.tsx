@@ -9,6 +9,8 @@ export default async function Add(){
     let plants;
     try {
         session = await getLoginSession();
+        if (!(session?.status == "fulfilled") || !session.value?.user?.email)
+            throw new Error("No session");
         garden = await getGardenId(session.value.user.email);
         const garden_id = garden.rows[0].garden_id;
         plants = await getAllPlants(garden_id);
@@ -20,7 +22,7 @@ export default async function Add(){
 
     return (
         <>
-        <main class="w-screen h-screen">
+        <main className="w-screen h-screen">
         <p>Nice</p>
         <AddEntryButton plantList={plants} />
         </main>
@@ -28,14 +30,14 @@ export default async function Add(){
     )
 }
 
-async function getGardenId(email){
+async function getGardenId(email: String){
     const query = "SELECT g.garden_id, g.name FROM users as u join garden as g on u.garden_id = g.garden_id WHERE u.email = '" + email + "'";
     const result = await conn.query(query);
     return result;
 }
 
 
-async function getAllPlants(garden_id){
+async function getAllPlants(garden_id: Number){
     const query = "SELECT v.name, v.veg_id FROM veg AS v JOIN garden AS g ON v.garden_id = g.garden_id WHERE g.garden_id  = $1";
     const values = [garden_id];
     const result = await conn.query(query, values);

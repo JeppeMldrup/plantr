@@ -1,14 +1,10 @@
 import { Pool } from 'pg';
 
-let conn;
-
-if (!conn) {
-    conn = new Pool({
+let conn: Pool = new Pool({
         user: process.env.PG_USER,
         password: process.env.PG_PASS,
         host: process.env.PG_HOST,
-        port: process.env.PG_PORT,
+        port: process.env.PG_PORT ? parseInt(process.env.PG_PORT) : undefined,
     });
-}
 
 export default conn;

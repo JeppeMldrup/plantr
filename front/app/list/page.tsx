@@ -9,6 +9,8 @@ export default async function List(){
     let plants;
     try {
         session = await getLoginSession();
+        if (!(session?.status == "fulfilled") || !session.value?.user?.email)
+            throw new Error("No session");
         garden = await getGardenId(session.value.user.email);
         const garden_id = garden.rows[0].garden_id;
         plants = await getAllPlants(garden_id);
@@ -18,30 +20,30 @@ export default async function List(){
         console.log(e);
     }
 
-    if (!garden.rows[0]){
+    if (!garden || !garden.rows[0]){
         return (
             <>
-            <main class="w-screen h-screen flex flex-col justify-center items-center">
+            <main className="w-screen h-screen flex flex-col justify-center items-center">
             <GardenInviteJoin/>
             <div>
-            <p class="text-xl">OR</p>
+            <p className="text-xl">OR</p>
             </div>
-            <GardenCreationForm userName={session.value.user.email}/>
+            <GardenCreationForm />
             </main>
             </>
         );
     }
     return (
         <>
-        <main class="w-screen h-screen flex flex-col">
+        <main className="w-screen h-screen flex flex-col">
         <p>{garden.rows[0].garden_id}</p>
         <InviteButton />
         <div>
-        <p class="text-xl">Garden contents:</p>
+        <p className="text-xl">Garden contents:</p>
         </div>
         <div>
         {
-            plants.map((veg) => <p>{veg.name}</p>)
+            plants ? plants.map((veg: any) => <p key={veg.veg_id}>{veg.name}</p>) : null
         }
         </div>
         <AddVegButton />
@@ -50,14 +52,14 @@ export default async function List(){
     )
 }
 
-async function getGardenId(email){
+async function getGardenId(email: String){
     const query = "SELECT g.garden_id, g.name FROM users as u join garden as g on u.garden_id = g.garden_id WHERE u.email = '" + email + "'";
     const result = await conn.query(query);
     return result;
 }
 
-async function getAllPlants(garden_id){
-    const query = "SELECT v.name FROM veg AS v JOIN garden AS g ON v.garden_id = g.garden_id WHERE g.garden_id  = $1";
+async function getAllPlants(garden_id: Number){
+    const query = "SELECT v.name, v.veg_id FROM veg AS v JOIN garden AS g ON v.garden_id = g.garden_id WHERE g.garden_id  = $1";
     const values = [garden_id];
     const result = await conn.query(query, values);
     console.log(result);

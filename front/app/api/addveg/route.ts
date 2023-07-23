@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { getLoginSession, authOptions } from '@/lib/auth';
+import { getLoginSession } from '@/lib/auth';
 import pool from '@/lib/db';
 
 export async function POST(request: NextRequest){
@@ -10,7 +10,9 @@ export async function POST(request: NextRequest){
         if (vegName == ""){
             throw new Error("plant name cannot be empty");
         }
-        const session = await getLoginSession(authOptions);
+        const session = await getLoginSession();
+        if (!(session?.status == "fulfilled") || !session.value?.user?.email)
+            throw new Error("No session");
 
         let query = "SELECT g.garden_id FROM garden AS g JOIN users AS u ON g.garden_id = u.garden_id WHERE u.email = $1";
         let values = [session.value.user.email];
@@ -32,6 +34,6 @@ export async function POST(request: NextRequest){
     }
     catch(error){
         console.log(error);
-        return NextResponse.error(error);
+        return NextResponse.error();
     }
 }

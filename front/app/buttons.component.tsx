@@ -10,10 +10,10 @@ export const LoginButton = () => {
     );
 }
 
-export const RedirectButton = (props) => {
+export const RedirectButton = (props: any) => {
     const {dest, text} = props;
     const router = useRouter();
     return (
-        <button class="w-40 h-10" onClick={() => router.push(dest)}>{text}</button>
+        <button className="w-40 h-10" onClick={() => router.push(dest)}>{text}</button>
     );
 }

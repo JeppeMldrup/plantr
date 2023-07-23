@@ -1,6 +1,3 @@
-import { useSession, signIn, signOut } from 'next-auth/react';
-import { authOptions, getLoginSessionServer } from '@/lib/auth';
-import { getServerSession } from 'next-auth/next';
 import { redirect } from 'next/navigation';
 import { LoginButton } from './buttons.component';
 import { getLoginSession } from '@/lib/auth';
@@ -8,8 +5,12 @@ import conn from '@/lib/db';
 
 export default async function Home() {
     let session;
+    let shouldRedirect = false;
     try{
-        session = await getLoginSession(authOptions);
+        session = await getLoginSession();
+        if (!(session?.status == "fulfilled") || !session.value?.user?.email)
+            throw new Error("No session");
+        shouldRedirect = true;
         const query = "INSERT INTO users(email, garden_id) VALUES ('" + session.value.user.email + "', null) ON CONFLICT DO NOTHING";
         const result = conn.query(query);
     }
@@ -19,12 +20,12 @@ export default async function Home() {
     //const { data: session } = useSession();
     console.log("HOME PAGE");
     console.log(session);
-    if (session?.value?.user){
+    if (shouldRedirect){
         redirect('/home');
     }
     return (
         <>
-        <div class="w-screen h-screen flex justify-center items-center">
+        <div className="w-screen h-screen flex justify-center items-center">
         <LoginButton />
         </div>
         </>

@@ -1,27 +1,33 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { getLoginSession, authOptions } from '@/lib/auth';
+import { getLoginSession } from '@/lib/auth';
 import pool from '@/lib/db';
 
 export async function POST(request: NextRequest){
     const params = request.nextUrl.searchParams;
-    console.log(params.get('name'));
-    const session = await getLoginSession(authOptions);
-    console.log(session);
 
-    let query = 'INSERT INTO garden(name) VALUES ($1) RETURNING garden_id';
-    let values = [params.get('name')];
+    try{
+        const session = await getLoginSession();
+        if (!(session?.status == "fulfilled") || !session.value?.user?.email)
+            throw new Error("No session");
 
-    let result = await pool.query(query, values);
+        let query = 'INSERT INTO garden(name) VALUES ($1) RETURNING garden_id';
+        let values = [params.get('name')];
 
-    query = "UPDATE users SET garden_id = $1 where email = $2"
-    values = [result.rows[0].garden_id, session.value.user.email];
+        let result = await pool.query(query, values);
 
-    console.log(result.rows[0].garden_id);
-    console.log(values);
+        query = "UPDATE users SET garden_id = $1 where email = $2"
+        values = [result.rows[0].garden_id, session.value.user.email];
 
-    result = await pool.query(query, values);
+        console.log(result.rows[0].garden_id);
+        console.log(values);
 
-    console.log(result);
+        result = await pool.query(query, values);
 
-    return NextResponse.json({status: 200});
+        console.log(result);
+
+        return NextResponse.json({status: 200});
+    }
+    catch(e){
+        return NextResponse.error();
+    }
 }
