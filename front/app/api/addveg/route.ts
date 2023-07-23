@@ -14,7 +14,7 @@ export async function POST(request: NextRequest){
         if (!(session?.status == "fulfilled") || !session.value?.user?.email)
             throw new Error("No session");
 
-        let query = "SELECT g.garden_id FROM garden AS g JOIN users AS u ON g.garden_id = u.garden_id WHERE u.email = $1";
+        let query = "SELECT g.garden_id FROM garden AS g JOIN users AS u ON g.garden_id = u.garden_id WHERE u.email = crypt($1, email)";
         let values = [session.value.user.email];
 
         let result = await pool.query(query, values);

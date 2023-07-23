@@ -15,7 +15,7 @@ export async function POST(request: NextRequest){
 
         let result = await pool.query(query, values);
 
-        query = "UPDATE users SET garden_id = $1 where email = $2"
+        query = "UPDATE users SET garden_id = $1 where email = crypt($2, email)"
         values = [result.rows[0].garden_id, session.value.user.email];
 
         console.log(result.rows[0].garden_id);

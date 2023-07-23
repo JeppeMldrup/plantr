@@ -11,7 +11,8 @@ export default async function Home() {
         if (!(session?.status == "fulfilled") || !session.value?.user?.email)
             throw new Error("No session");
         shouldRedirect = true;
-        const query = "INSERT INTO users(email, garden_id) VALUES ('" + session.value.user.email + "', null) ON CONFLICT DO NOTHING";
+        const encrypt = "crypt('" + session.value.user.email + "', gen_salt('bf', 8))";
+        const query = "INSERT INTO users(email, garden_id) VALUES ("+ encrypt +", null) ON CONFLICT DO NOTHING";
         const result = conn.query(query);
     }
     catch(e){
