@@ -1,5 +1,11 @@
 version: '3.8'
 services:
+  app:
+    image: plant:latest
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
   db:
     image: postgres:latest
     restart: always
