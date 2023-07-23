@@ -1,3 +1,5 @@
+create extension pgcrypto;
+
 create table if not exists garden (
   garden_id int generated always as identity primary key,
   name varchar ( 255 )
