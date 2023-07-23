@@ -36,7 +36,7 @@ async function getGardenId(email){
 
 
 async function getAllPlants(garden_id){
-    const query = "SELECT v.name FROM veg AS v JOIN garden AS g ON v.garden_id = g.garden_id WHERE g.garden_id  = $1";
+    const query = "SELECT v.name, v.veg_id FROM veg AS v JOIN garden AS g ON v.garden_id = g.garden_id WHERE g.garden_id  = $1";
     const values = [garden_id];
     const result = await conn.query(query, values);
     console.log(result);
