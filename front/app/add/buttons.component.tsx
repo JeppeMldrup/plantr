@@ -31,7 +31,7 @@ export const AddEntryButton = (props: any) => {
         let thing = fetch('/api/add?'+params, {method: "POST"});
         thing.then((res) => {
             if (res.ok){
-                router.push('/home');
+                router.replace('/home');
             }
         });
     }

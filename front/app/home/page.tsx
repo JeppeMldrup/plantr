@@ -17,17 +17,17 @@ export default async function Home(){
 
     return (
         <>
-        <main className="w-screen h-screen flex flex-col">
+        <main className="w-screen h-screen flex flex-col bg-gray-50">
         <div className="w-screen h-20 items-center">
             <p className="">Logged in as {userName}</p>
             <button className="">Log out</button>
         </div>
 
-        <h1 className="text-xl w-screen h-20 text-center">PlantAPI</h1>
+        <h1 className="text-3xl w-screen h-20 text-slate-600 text-center mt-10">Gardentally</h1>
 
-        <div className="flex flex-wrap justify-center items-center w-screen h-20">
-            <RedirectButton dest="/list" text="List of entries"/>
-            <RedirectButton dest="/add" text="Add new entry"/>
+        <div className="flex justify-center w-screen h-20 max-w-[80%] mx-10 self-center">
+            <RedirectButton dest="/list" text="Garden overview"/>
+            <RedirectButton dest="/add" text="Create a harvest"/>
         </div>
 
         </main>

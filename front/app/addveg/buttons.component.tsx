@@ -13,7 +13,8 @@ export const AddVegButton = () => {
         thing.then((res) => {
             console.log(res);
             if (res.ok){
-                router.push('/list');
+                router.back();
+                router.refresh();
             }
         });
     }
