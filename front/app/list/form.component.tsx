@@ -81,7 +81,7 @@ export const VegList = (props: any) => {
     if(!plants)
         return (<p>No plants</p>);
     return (<>{plants.map((veg: any) => {return (
-            <div className='NTSETNES'>
+            <div key={veg.veg_id} className='NTSETNES'>
                 <span className=' mx-4'>{veg.name}</span>
                 <button onClick={() => router.push('/stats?veg='+veg.veg_id)}>See stats</button>
             </div>)

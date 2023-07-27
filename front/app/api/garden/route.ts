@@ -4,13 +4,14 @@ import pool from '@/lib/db';
 
 export async function POST(request: NextRequest){
     const params = request.nextUrl.searchParams;
+    const gardenName = params.get('name');
 
     try{
         const session = await getLoginSession();
         if (!(session?.status == "fulfilled") || !session.value?.user?.email)
             throw new Error("No session");
         
-        if (params == null || !params.get('name'))
+        if (!gardenName)
             throw new Error("Need garden name as parameter");
 
         let query = "SELECT garden_id FROM users WHERE email = crypt($1, email)";
@@ -21,7 +22,7 @@ export async function POST(request: NextRequest){
             throw new Error("Already has a garden");
         
         query = 'INSERT INTO garden(name) VALUES ($1) RETURNING garden_id';
-        values = [params.get('name')];
+        values = [gardenName];
 
         result = await pool.query(query, values);
 
