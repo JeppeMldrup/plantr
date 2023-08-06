@@ -38,7 +38,7 @@ export default async function List(){
     }
     return (
         <>
-        <main className="w-screen h-screen flex flex-col bg-gray-50 items-center">
+        <main className="w-screen flex flex-col bg-gray-50 items-center">
         <div>
         <p className="text-xl">Contents of {garden.rows[0].name}:</p>
         </div>
