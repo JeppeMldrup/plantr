@@ -38,15 +38,13 @@ export default async function List(){
     }
     return (
         <>
-        <main className="w-screen h-screen flex flex-col bg-gray-50">
-        <AddVegButton />
+        <main className="w-screen h-screen flex flex-col bg-gray-50 items-center">
         <div>
         <p className="text-xl">Contents of {garden.rows[0].name}:</p>
         </div>
-        <div>
-        <VegList plantList={plants} />
+        <div className=' w-4/5 max-w-[80ch]'>
+        <VegList className='w-1/2' plantList={plants} />
         </div>
-        <InviteButton />
         </main>
         </>
     )
