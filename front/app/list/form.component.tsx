@@ -25,6 +25,7 @@ export const GardenCreationForm = () => {
 
 export const GardenInviteJoin = () => {
     const  [gardenCode, setGardenCode] = useState("");
+    const router = useRouter();
 
     return (
         <>
@@ -34,7 +35,7 @@ export const GardenInviteJoin = () => {
                 <input className=' text-slate-400 bg-white border-y-2 border-l-2 border-gray-200 w-3/4 rounded-l' 
                         type="text" placeholder=' Input invite code to join' value={gardenCode} onChange={(event) => setGardenCode(event.target.value)} />
                 <button className=' transition-all bg-green-500 hover:bg-green-600 focus:bg-green-700 w-1/4 rounded-r border-y-2 border-r-2 border-green-600'
-                        onClick={() => handleJoinGarden(gardenCode)} >Join garden</button>
+                        onClick={() => handleJoinGarden(gardenCode, router)} >Join garden</button>
             </div>
         </div>
         </>
@@ -86,17 +87,15 @@ export const VegList = (props: any) => {
     const plants = props.plantList;
     console.log(plants);
     const router = useRouter();
-    if(!plants)
-        return (<p>No plants</p>);
     return (<>
         <div className=' flex flex-wrap w-full justify-center items-center block'>
-        {plants.map((veg: any) => {return (
+        {plants ? plants.map((veg: any) => {return (
             <div key={veg.veg_id} onClick={() => router.push('/stats?veg='+veg.veg_id)}
             className=' m-3 p-2 flex-grow bg-gray-200 rounded hover:bg-gray-300 active:bg-gray-400 h-40 w-[20rem] hover:cursor-pointer'>
                 <span className=' block text-xl w-full text-ellipsis overflow-hidden whitespace-nowrap'>{veg.name}</span>
                 <p>Click to see stats</p>
             </div>)
-        })}
+        }) : null}
         <AddVegButton></AddVegButton>
         </div>
         <div className=' flex justify-around w-2/3 m-auto max-w-[25rem] my-4'>
@@ -120,9 +119,10 @@ const handleGardenCreation = async (gardenName: String, router: AppRouterInstanc
     router.refresh();
 }
 
-const handleJoinGarden = (gardenCode: String) => {
+const handleJoinGarden = async (gardenCode: String, router: AppRouterInstance) => {
     console.log(gardenCode);
-    fetch('/api/joingarden?code=' + gardenCode, {
+    await fetch('/api/joingarden?code=' + gardenCode, {
         method: "POST"
     });
+    router.refresh();
 }
