@@ -22,8 +22,7 @@ export default async function Add(){
 
     return (
         <>
-        <main className="w-screen h-screen">
-        <p>Nice</p>
+        <main className="w-screen h-screen bg-gray-50 flex flex-col">
         <AddEntryButton plantList={plants} />
         </main>
         </>
