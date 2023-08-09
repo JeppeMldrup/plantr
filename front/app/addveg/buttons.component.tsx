@@ -22,7 +22,7 @@ export const AddVegButton = () => {
 
     return (
         <>
-        <div className=' flex flex-wrap justify-center items-center w-full max-w-[30rem] self-center'>
+        <div className=' flex flex-wrap justify-center items-center w-full md:w-3/5 self-center'>
         <p className=' text-gray-700'>Input a name for the plant:</p>
         <input className=' w-full block text-grey-400 border-gray-300 border-2 bg-white rounded mx-8 mt-4'
             type="text" value={vegName} onChange={(event) => setVegName(event.target.value)} />
