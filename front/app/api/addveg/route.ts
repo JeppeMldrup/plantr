@@ -5,10 +5,14 @@ import pool from '@/lib/db';
 export async function POST(request: NextRequest){
     const params = request.nextUrl.searchParams;
     const vegName = params.get('name');
+    let vegDate = params.get('date');
 
     try{
         if (vegName == ""){
             throw new Error("plant name cannot be empty");
+        }
+        if (!vegDate){
+            vegDate = new Date().toISOString().split("T")[0];
         }
         const session = await getLoginSession();
         if (!(session?.status == "fulfilled") || !session.value?.user?.email)
@@ -23,8 +27,8 @@ export async function POST(request: NextRequest){
 
         const garden_id = result.rows[0].garden_id;
 
-        query = "INSERT INTO veg(garden_id, name, status) VALUES ($1, $2, $3)";
-        values = [garden_id, vegName, "alive"];
+        query = "INSERT INTO veg(garden_id, name, status, planting_date) VALUES ($1, $2, $3, $4)";
+        values = [garden_id, vegName, "alive", vegDate];
 
         result = await pool.query(query, values);
 
