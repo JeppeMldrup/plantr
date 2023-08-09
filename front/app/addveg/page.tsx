@@ -12,8 +12,8 @@ export default async function Add(){
 
     return (
         <>
-        <main className="w-screen h-screen">
-        <p>Nice</p>
+        <main className=" w-screen h-screen bg-gray-50 flex flex-col">
+            <p className=' self-center text-gray-700 my-2 text-2xl mx-8'>Add a new plant to your garden:</p>
         <AddVegButton />
         </main>
         </>

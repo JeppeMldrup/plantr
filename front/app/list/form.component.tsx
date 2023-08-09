@@ -88,7 +88,7 @@ export const VegList = (props: any) => {
     console.log(plants);
     const router = useRouter();
     return (<>
-        <div className=' flex flex-wrap w-full justify-center items-center block'>
+        <div className=' flex flex-wrap w-full justify-center items-center'>
         {plants ? plants.map((veg: any) => {return (
             <div key={veg.veg_id} onClick={() => router.push('/stats?veg='+veg.veg_id)}
             className=' m-3 p-2 flex-grow bg-gray-200 rounded hover:bg-gray-300 active:bg-gray-400 h-40 w-[20rem] hover:cursor-pointer'>
