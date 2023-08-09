@@ -23,6 +23,7 @@ create table if not exists veg (
   garden_id int,
   name varchar ( 255 ),
   status varchar (10),
+  planting_date date,
   foreign key (garden_id) references garden(garden_id)
 );
 
