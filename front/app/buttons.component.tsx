@@ -21,15 +21,16 @@ export const RedirectButton = (props: any) => {
 }
 
 export const StatusBar = (props: any) => {
-    const {name} = props;
+    const {text} = props;
     const router = useRouter();
     return (
-        <div className=' w-full h-14 bg-gray-300'>
-            <div className=' h-full w-12 pl-3' onClick={() => {router.back()}}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className=" text-gray-700 h-full w-6 text-center self-center">
+        <div className=' w-full h-[8vh] bg-gray-300 flex items-center justify-center'>
+            <div className=' h-full w-[8vh] hover:bg-gray-400 active:bg-gray-500' onClick={() => {router.back()}}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className=" text-gray-700 h-full mx-[2vh] w-[4vh] text-center self-center">
   <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
 </svg>
-            </div>
+</div>
+            <span className=' text-gray-700 text-xl w-full text-center md:text-left md:ml-8 mr-[8vh]'>{text}</span>
         </div>
     );
 }
