@@ -23,7 +23,10 @@ export default async function Home(){
             <button className="">Log out</button>
         </div>
 
-        <h1 className="text-3xl w-screen h-20 text-slate-600 text-center mt-10">Gardentally</h1>
+        <div className=' my-8 self-center'>
+            <span className=' block text-6xl text-green-500 md:inline'>GARDEN</span>
+            <span className=' block text-6xl text-gray-700 md:inline'>TALLY</span>
+        </div>
 
         <div className="flex justify-center w-screen h-20 max-w-[80%] mx-10 self-center">
             <RedirectButton dest="/list" text="Garden overview"/>

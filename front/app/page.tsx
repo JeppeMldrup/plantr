@@ -27,10 +27,10 @@ export default async function Home() {
         <div className="w-screen h-screen flex flex-col items-center pt-20 bg-gray-50">
         <div className='flex flex-col md:flex-row'>
             <p className=' block text-6xl text-green-500'>GARDEN</p>
-            <p className=' block text-6xl text-slate-600'>TALLY</p>
+            <p className=' block text-6xl text-gray-700'>TALLY</p>
         </div>
         <div className=' pt-20'></div>
-        <p className='  text-slate-600 w-1/2 text-center'>Easily track the harvests and plants from your garden</p>
+        <p className='  text-gray-700 w-1/2 text-center'>Easily track the harvests and plants from your garden</p>
         <div className=' pt-20'></div>
         <LoginButton />
         </div>
