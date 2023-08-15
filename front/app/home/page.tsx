@@ -1,5 +1,5 @@
 import { redirectToLogin, getLoginSession } from '@/lib/auth';
-import { RedirectButton, StatusBar } from '../buttons.component';
+import { HomeBar, RedirectButton, StatusBar } from '../buttons.component';
 
 export default async function Home(){
     await redirectToLogin();
@@ -17,6 +17,7 @@ export default async function Home(){
 
     return (
         <>
+        <HomeBar text="Home Page"/>
         <main className="w-screen h-screen flex flex-col bg-gray-50">
         <div className="w-screen h-20 items-center">
             <p className="">Logged in as {userName}</p>
