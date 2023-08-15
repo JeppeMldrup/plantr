@@ -24,7 +24,7 @@ export const StatusBar = (props: any) => {
     const {text} = props;
     const router = useRouter();
     return (
-        <div className=' w-full h-[8vh] bg-gray-300 flex items-center justify-center'>
+        <div className=' fixed w-full h-[8vh] -translate-y-[8vh] bg-gray-300 flex items-center justify-center'>
             <div className=' h-full w-[8vh] hover:bg-gray-400 active:bg-gray-500' onClick={() => {router.back()}}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className=" text-gray-700 h-full mx-[2vh] w-[4vh] text-center self-center">
   <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />

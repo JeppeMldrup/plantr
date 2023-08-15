@@ -2,6 +2,7 @@ import { redirectToLogin, getLoginSession } from '@/lib/auth';
 import conn from '@/lib/db';
 import { INTERNALS } from 'next/dist/server/web/spec-extension/request';
 import { NextRequest, NextResponse } from 'next/server';
+import { StatusBar } from '../buttons.component';
 
 
 export default async function Stats(req: any, res: NextResponse){
@@ -45,6 +46,7 @@ export default async function Stats(req: any, res: NextResponse){
     }
     return (
         <>
+        <StatusBar text="Vegetable Statistics"/>
         <main className="w-screen h-screen flex flex-col items-center bg-gray-50 pt-10">
             <p>
                 {veg_id ? <p>Total stats for vegetable number: {veg_id}</p> : <p>Total stats for user: {userName}</p>}
