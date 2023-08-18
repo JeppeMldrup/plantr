@@ -57,11 +57,19 @@ export const HomeBar = (props: any) => {
             className={` fixed top-0 left-0 w-full h-full opacity-50 bg-gray-700 ${isHidden? "-translate-x-[100vw]" : ""}`}
         >
         </div>
-        <div className={` pt-4 fixed top-0 -left-[100vw] ${!isHidden? "translate-x-[100vw]" : "" } w-[80vw] h-full bg-gray-50 transition-all`}>
+        <div className={` fixed top-0 -left-[100vw] ${!isHidden? "translate-x-[100vw]" : "" } w-[80vw] md:w-2/5 h-full bg-gray-50 transition-all`}>
+            <div onClick={() => setIsHidden(!isHidden)}
+                className=' w-full px-4 text-gray-700 flex text-xl items-center h-[8vh] hover:bg-gray-300 active:bg-gray-400'>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-2">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+</svg>
+                Close menu
+            </div>
             <div onClick={() => {
                 signOut();
                 router.replace('/');
-                }} className=' w-full px-4 text-gray-700'>
+                }}
+                className=' w-full px-12 h-[8vh] flex-col flex justify-center text-xl hover:bg-gray-300 active:bg-gray-400 text-gray-700'>
                 Logout
             </div>
         </div>
