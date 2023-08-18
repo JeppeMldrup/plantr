@@ -40,7 +40,7 @@ export const HomeBar = (props: any) => {
     const {text} = props;
     const router = useRouter();
 
-    const [isHidden, setIsHidden] = useState(false);
+    const [isHidden, setIsHidden] = useState(true);
 
     return (
         <>
@@ -57,8 +57,13 @@ export const HomeBar = (props: any) => {
             className={` fixed top-0 left-0 w-full h-full opacity-50 bg-gray-700 ${isHidden? "-translate-x-[100vw]" : ""}`}
         >
         </div>
-        <div className={` fixed top-0 -left-[100vw] ${!isHidden? "translate-x-[100vw]" : "" } w-[80vw] h-full bg-gray-50 transition-all`}>
-            HERE WE GO
+        <div className={` pt-4 fixed top-0 -left-[100vw] ${!isHidden? "translate-x-[100vw]" : "" } w-[80vw] h-full bg-gray-50 transition-all`}>
+            <div onClick={() => {
+                signOut();
+                router.replace('/');
+                }} className=' w-full px-4 text-gray-700'>
+                Logout
+            </div>
         </div>
         </>
     );
