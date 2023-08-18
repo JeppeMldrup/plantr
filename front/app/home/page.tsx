@@ -19,10 +19,6 @@ export default async function Home(){
         <>
         <HomeBar text="Home Page"/>
         <main className="w-screen h-screen flex flex-col bg-gray-50">
-        <div className="w-screen h-20 items-center">
-            <p className="">Logged in as {userName}</p>
-            <button className="">Log out</button>
-        </div>
 
         <div className=' my-8 self-center'>
             <span className=' block text-6xl text-green-500 md:inline'>GARDEN</span>
