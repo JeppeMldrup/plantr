@@ -1,5 +1,6 @@
 import { redirectToLogin, getLoginSession } from '@/lib/auth';
 import { GardenCreationForm, GardenInviteJoin, InviteButton, AddVegButton, VegList } from './form.component';
+import { StatusBar } from '../buttons.component';
 import conn from '@/lib/db';
 
 export default async function List(){
@@ -23,6 +24,7 @@ export default async function List(){
     if (!garden || !garden.rows[0]){
         return (
             <>
+            <StatusBar text="Join garden" />
             <main className="w-screen h-screen flex flex-col items-center bg-gray-50 pt-10">
             <p className=' text-slate-400 mb-5 text-2xl text-center w-3/4'>Your account is not connected to a garden yet</p>
             <GardenInviteJoin/>
@@ -38,6 +40,7 @@ export default async function List(){
     }
     return (
         <>
+        <StatusBar text="Contents" />
         <main className="w-screen flex flex-col bg-gray-50 items-center">
         <div>
         <p className="text-xl">Contents of {garden.rows[0].name}:</p>
