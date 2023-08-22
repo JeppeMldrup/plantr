@@ -25,7 +25,9 @@ export const StatusBar = (props: any) => {
     const {text} = props;
     const router = useRouter();
     return (
-        <div className=' fixed w-full h-[8vh] -translate-y-[8vh] bg-gray-300 flex items-center justify-center'>
+        <>
+        <div className=' w-full mt-[8vh]'></div>
+<div className=' fixed top-0 w-full h-[8vh] bg-gray-300 flex items-center justify-center'>
             <div className=' h-full w-[8vh] hover:bg-gray-400 active:bg-gray-500' onClick={() => {router.back()}}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className=" text-gray-700 h-full mx-[2vh] w-[4vh] text-center self-center">
   <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -33,7 +35,8 @@ export const StatusBar = (props: any) => {
 </div>
             <span className=' text-gray-700 text-xl w-full text-center md:text-left md:ml-8 mr-[8vh]'>{text}</span>
         </div>
-    );
+        </>
+        );
 }
 
 export const HomeBar = (props: any) => {
@@ -44,7 +47,8 @@ export const HomeBar = (props: any) => {
 
     return (
         <>
-        <div className=' fixed w-full h-[8vh] -translate-y-[8vh] bg-gray-300 flex items-center justify-center'>
+        <div className=' w-full mt-[8vh]'></div>
+        <div className=' fixed top-0 w-full h-[8vh] bg-gray-300 flex items-center justify-center'>
             <div className=' h-full w-[8vh] hover:bg-gray-400 active:bg-gray-500' onClick={() => {setIsHidden(!isHidden)}}>
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className=" text-gray-700 h-full mx-[2vh] w-[4vh] text-center self-center">
   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
