@@ -47,7 +47,7 @@ export default async function Stats(req: any, res: NextResponse){
     return (
         <>
         <StatusBar text="Vegetable Statistics"/>
-        <main className="w-screen h-screen flex flex-col items-center bg-gray-50 pt-10">
+        <main className="w-full flex flex-col items-center bg-gray-50 pt-10">
             <p>
                 {veg_id ? <p>Total stats for vegetable number: {veg_id}</p> : <p>Total stats for user: {userName}</p>}
             </p>

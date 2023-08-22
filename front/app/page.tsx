@@ -24,7 +24,7 @@ export default async function Home() {
     }
     return (
         <>
-        <div className="w-screen h-screen flex flex-col items-center pt-20 bg-gray-50">
+        <div className="w-full flex flex-col items-center pt-20 bg-gray-50">
         <div className='flex flex-col md:flex-row'>
             <p className=' block text-6xl text-green-500'>GARDEN</p>
             <p className=' block text-6xl text-gray-700'>TALLY</p>

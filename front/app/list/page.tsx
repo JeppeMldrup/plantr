@@ -25,7 +25,7 @@ export default async function List(){
         return (
             <>
             <StatusBar text="Join garden" />
-            <main className="w-screen h-screen flex flex-col items-center bg-gray-50 pt-10">
+            <main className="w-full flex flex-col items-center bg-gray-50 pt-10">
             <p className=' text-slate-400 mb-5 text-2xl text-center w-3/4'>Your account is not connected to a garden yet</p>
             <GardenInviteJoin/>
             <div className=' flex justify-around w-2/3 max-w-[25rem] my-4'>
@@ -41,7 +41,7 @@ export default async function List(){
     return (
         <>
         <StatusBar text="Contents" />
-        <main className="w-screen flex flex-col bg-gray-50 items-center">
+        <main className="w-full flex flex-col bg-gray-50 items-center">
         <div>
         <p className="text-xl">Contents of {garden.rows[0].name}:</p>
         </div>

@@ -24,7 +24,7 @@ export default async function Add(){
     return (
         <>
         <StatusBar text="Add Harvest"/>
-        <main className="w-screen h-screen bg-gray-50 flex flex-col">
+        <main className="w-full bg-gray-50 flex flex-col">
         <AddEntryButton plantList={plants} />
         </main>
         </>
