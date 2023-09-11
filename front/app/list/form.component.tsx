@@ -58,7 +58,7 @@ export const InviteButton = () => {
     return (
         <>
         {isGenerated ? (
-            <div className=' mx-3 h-auto w-1/2 flex'>
+            <div className=' mx-3 h-auto w-full md:w-1/2 flex'>
                 <p className=' my-3 self-center p-2 w-4/5 rounded-l border-y-2 border-l-2 border-gray-400 pl-4'>{inviteCode}</p>
                 <div className=' my-3 self-center p-2 w-1/5 bg-gray-200 hover:bg-gray-300 active:bg-gray-400 rounded-r border-y-2 border-r-2 border-gray-700'
                     onClick={() => {navigator.clipboard.writeText(inviteCode); setIsCopied(true)}}>
@@ -72,7 +72,7 @@ export const InviteButton = () => {
                       }
                     </div>
             </div>
-        ) : <button className=' m-3 p-2 bg-gray-200 rounded hover:bg-gray-300 w-1/2 active:bg-gray-400 hover:cursor-pointer'
+        ) : <button className=' m-3 p-2 bg-gray-200 rounded hover:bg-gray-300 w-full md:w-1/2 active:bg-gray-400 hover:cursor-pointer'
         onClick={() => handleGenerateInvite()}>Invite to garden</button>}
         </>
     );
@@ -114,8 +114,8 @@ export const VegList = (props: any) => {
                 <span className=" text-xl text-slate-400">OR</span>
                 <span className=' bg-slate-400 h-px w-full self-center mx-4'></span>
             </div>
-        <div className=' flex justify-evenly' >
-            <button className=' m-3 p-2 bg-gray-200 rounded hover:bg-gray-300 w-1/2 active:bg-gray-400 hover:cursor-pointer'
+        <div className=' flex justify-evenly flex-wrap md:flex-nowrap' >
+            <button className=' m-3 p-2 bg-gray-200 rounded hover:bg-gray-300 w-full md:w-1/2 active:bg-gray-400 hover:cursor-pointer'
          onClick={() => router.push('/stats')}>See stats for entire garden</button>
             <InviteButton></InviteButton>
         </div>
