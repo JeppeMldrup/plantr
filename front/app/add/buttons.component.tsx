@@ -45,6 +45,7 @@ export const AddEntryButton = (props: any) => {
             <p className=' w-full text-center mx-8 mt-4'>Input date of harvest:</p>
         <input className=' w-full block text-grey-400 border-gray-300 border-2 bg-white rounded mx-8 mt-4'
             type='date' value={harvestDate} onChange={(event) => setHarvestDate(event.target.value)}></input>
+        <div className=' w-full h-0'></div>
         <div className=' w-1/2 mt-8 rounded bg-gray-300'
             onClick={() => setDropDown(!dropDown)}><span className=' flex justify-center items-center px-4 h-12 rounded hover:bg-gray-400'><span className=' w-full text-left'>{selectedVeg}</span>{dropDown ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
