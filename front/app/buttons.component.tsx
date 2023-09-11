@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 
 export const LoginButton = () => {
     return (
-        <button className=' transition-all text-gray-700 bg-gray-200 p-2 px-3 rounded hover:bg-gray-300 focus:bg-gray-400'
+        <button className=' loginbutton transition-all text-gray-700 bg-gray-200 p-2 px-3 rounded hover:bg-gray-300 focus:bg-gray-400'
                 onClick={() => signIn('google')}>Sign in with google</button>
     );
 }
