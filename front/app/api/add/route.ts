@@ -8,13 +8,13 @@ export async function POST(request: NextRequest){
 
     try{
         const session = await getLoginSession();
-        if (!(session?.status == "fulfilled") || !session.value?.user?.email)
+        if (!session?.user?.email)
             throw new Error("No session");
         if (!params.get('veg') || !params.get('date') || !params.get('amount') || !params.get('weight'))
             throw new Error("Missing parameters");
 
         let query = "SELECT * FROM users AS u JOIN veg AS v on v.garden_id = u.garden_id WHERE u.email = crypt($1, email) AND v.veg_id = $2"
-        let values = [session.value.user.email, params.get('veg')]
+        let values = [session.user.email, params.get('veg')]
         let result = await conn.query(query, values);
 
         if (!result.rows[0])

@@ -15,10 +15,10 @@ export default async function Stats(req: any, res: NextResponse){
     let userName;
     try {
         session = await getLoginSession();
-        if (!(session?.status == "fulfilled") || !session.value?.user?.email)
+        if (!session?.user?.email)
             throw new Error("No session");
         
-        userName = session.value.user.name;
+        userName = session.user.name;
         
         let query;
         let values;
@@ -26,12 +26,12 @@ export default async function Stats(req: any, res: NextResponse){
         if(veg_id){
             query = "SELECT SUM(h.weight) AS weight, SUM(h.amount) AS amount FROM users AS u JOIN veg AS v ON u.garden_id = v.garden_id " +
                     "JOIN harvest AS h ON v.veg_id = h.veg_id WHERE u.email = crypt($1, email) AND v.veg_id = $2";
-            values = [session.value.user.email, veg_id];
+            values = [session.user.email, veg_id];
         }
         else{
             query = "SELECT SUM(h.weight) AS weight, SUM(h.amount) AS amount FROM users AS u JOIN veg AS v ON u.garden_id = v.garden_id " +
                     "JOIN harvest AS h ON v.veg_id = h.veg_id WHERE u.email = crypt($1, email)";
-            values = [session.value.user.email];
+            values = [session.user.email];
         }
 
         let result = await conn.query(query, values);

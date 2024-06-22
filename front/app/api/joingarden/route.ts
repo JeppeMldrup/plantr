@@ -7,7 +7,7 @@ export async function POST(request: NextRequest){
 
     try{
         const session = await getLoginSession();
-        if (!(session?.status == "fulfilled") || !session.value?.user?.email)
+        if (!session?.user?.email)
             throw new Error("No session");
 
         let query = 'SELECT * FROM invite WHERE invite_code = $1';
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest){
         result = await pool.query(query, values);
 
         query = "UPDATE users SET garden_id = $1 WHERE email = crypt($2, email)";
-        values = [id, session.value.user.email];
+        values = [id, session.user.email];
 
         result = await pool.query(query, values);
 
@@ -42,11 +42,11 @@ export async function POST(request: NextRequest){
 export async function GET(request: NextRequest){
     try{
         const session = await getLoginSession();
-        if (!(session?.status == "fulfilled") || !session.value?.user?.email)
+        if (!session?.user?.email)
             throw new Error("No session");
 
         let query = 'SELECT i.invite_code FROM invite AS i JOIN users AS u ON i.garden_id = u.garden_id WHERE u.email = crypt($1, email)';
-        let values = [session.value.user.email];
+        let values = [session.user.email];
 
         try{
             let result = await pool.query(query, values);
@@ -60,7 +60,7 @@ export async function GET(request: NextRequest){
         }
 
         query = 'SELECT garden_id FROM users WHERE email = crypt($1, email)';
-        values = [session.value.user.email];
+        values = [session.user.email];
 
         let result = await pool.query(query, values);
 

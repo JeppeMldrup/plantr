@@ -8,14 +8,14 @@ export async function POST(request: NextRequest){
 
     try{
         const session = await getLoginSession();
-        if (!(session?.status == "fulfilled") || !session.value?.user?.email)
+        if (!session?.user?.email)
             throw new Error("No session");
         
         if (!gardenName)
             throw new Error("Need garden name as parameter");
 
         let query = "SELECT garden_id FROM users WHERE email = crypt($1, email)";
-        let values = [session.value.user.email];
+        let values = [session.user.email];
         let result = await pool.query(query, values);
 
         if (result.rows[0] && result.rows[0].garden_id != null)
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest){
         result = await pool.query(query, values);
 
         query = "UPDATE users SET garden_id = $1 where email = crypt($2, email)"
-        values = [result.rows[0].garden_id, session.value.user.email];
+        values = [result.rows[0].garden_id, session.user.email];
 
         console.log(result.rows[0].garden_id);
         console.log(values);

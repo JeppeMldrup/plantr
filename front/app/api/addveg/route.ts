@@ -15,11 +15,11 @@ export async function POST(request: NextRequest){
             vegDate = new Date().toISOString().split("T")[0];
         }
         const session = await getLoginSession();
-        if (!(session?.status == "fulfilled") || !session.value?.user?.email)
+        if (!session?.user?.email)
             throw new Error("No session");
 
         let query = "SELECT g.garden_id FROM garden AS g JOIN users AS u ON g.garden_id = u.garden_id WHERE u.email = crypt($1, email)";
-        let values = [session.value.user.email];
+        let values = [session.user.email];
 
         let result = await pool.query(query, values);
 

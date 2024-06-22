@@ -10,9 +10,9 @@ export default async function List(){
     let plants;
     try {
         session = await getLoginSession();
-        if (!(session?.status == "fulfilled") || !session.value?.user?.email)
+        if (!session?.user?.email)
             throw new Error("No session");
-        garden = await getGardenId(session.value.user.email);
+        garden = await getGardenId(session.user.email);
         const garden_id = garden.rows[0].garden_id;
         plants = await getAllPlants(garden_id);
         console.log(garden);

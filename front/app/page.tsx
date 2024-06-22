@@ -1,25 +1,24 @@
 import { redirect } from 'next/navigation';
 import { LoginButton } from './buttons.component';
-import { getLoginSession } from '@/lib/auth';
+import { auth, getLoginSession } from '@/lib/auth';
 import conn from '@/lib/db';
 
 export default async function Home() {
-    let session;
-    let shouldRedirect = false;
+    let session = await auth();
+
     try{
         session = await getLoginSession();
-        if (!(session?.status == "fulfilled") || !session.value?.user?.email)
+        if (!session?.user?.email)
             throw new Error("No session");
-        shouldRedirect = true;
-        checkAndCreateAccount(session.value.user.email);
+        checkAndCreateAccount(session.user.email);
     }
     catch(e){
         console.log(e);
     }
-    //const { data: session } = useSession();
+    
     console.log("HOME PAGE");
     console.log(session);
-    if (shouldRedirect){
+    if (session){
         redirect('/home');
     }
     return (

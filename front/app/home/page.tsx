@@ -1,4 +1,4 @@
-import { redirectToLogin, getLoginSession } from '@/lib/auth';
+import { redirectToLogin, getLoginSession, auth } from '@/lib/auth';
 import { HomeBar, RedirectButton, StatusBar } from '../buttons.component';
 
 export default async function Home(){
@@ -6,10 +6,10 @@ export default async function Home(){
     let session;
     let userName;
     try {
-        session = await getLoginSession();
-        if (!(session?.status == "fulfilled") || !session.value?.user)
+        session = await auth();
+        if (!session?.user)
             throw new Error("No session");
-        userName = session.value.user.name;
+        userName = session.user.name;
     }
     catch(e){
         console.log(e)
