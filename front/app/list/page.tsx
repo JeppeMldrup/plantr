@@ -54,8 +54,9 @@ export default async function List(){
 }
 
 async function getGardenId(email: String){
-    const query = "SELECT g.garden_id, g.name FROM users as u join garden as g on u.garden_id = g.garden_id WHERE u.email = crypt('" + email + "', email)";
-    const result = await conn.query(query);
+    const query = "SELECT g.garden_id, g.name FROM users as u join garden as g on u.garden_id = g.garden_id WHERE u.email = crypt('$1', email)";
+    let values = [email];
+    let result = await conn.query(query, values);
     return result;
 }
 
