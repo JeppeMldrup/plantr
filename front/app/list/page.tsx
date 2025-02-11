@@ -8,14 +8,20 @@ export default async function List(){
     let session;
     let garden;
     let plants;
+    let yearList: number[];
     try {
+        let firstYear: Date;
         session = await getLoginSession();
         if (!session?.user?.email)
             throw new Error("No session");
         garden = await getGardenId(session.user.email);
         const garden_id = garden.rows[0].garden_id;
         plants = await getAllPlants(garden_id);
+        firstYear = (await getFirstYear(garden_id))[0].min;
         console.log(garden);
+        console.log(firstYear);
+        yearList = await getEveryYearUntilTodayList(firstYear.getFullYear());
+        console.log(yearList);
     }
     catch(e){
         console.log(e);
@@ -54,16 +60,36 @@ export default async function List(){
 }
 
 async function getGardenId(email: String){
-    const query = "SELECT g.garden_id, g.name FROM users as u join garden as g on u.garden_id = g.garden_id WHERE u.email = crypt('$1', email)";
+    const query = "SELECT g.garden_id, g.name FROM users as u join garden as g on u.garden_id = g.garden_id WHERE u.email = crypt($1, email)";
     let values = [email];
     let result = await conn.query(query, values);
     return result;
 }
 
 async function getAllPlants(garden_id: Number){
-    const query = "SELECT v.name, v.veg_id FROM veg AS v JOIN garden AS g ON v.garden_id = g.garden_id WHERE g.garden_id  = $1";
+    const query = "SELECT v.name, v.veg_id FROM veg AS v JOIN garden AS g ON v.garden_id = g.garden_id WHERE g.garden_id = $1";
     const values = [garden_id];
     const result = await conn.query(query, values);
     console.log(result);
     return result.rows;
+}
+
+async function getFirstYear(garden_id: Number){
+    const query = "SELECT min(v.planting_date) FROM veg AS v JOIN garden AS g ON v.garden_id = g.garden_id WHERE g.garden_id = $1"
+    const values = [garden_id];
+    const result = await conn.query(query, values);
+    console.log(result);
+    return result.rows;
+}
+
+async function getEveryYearUntilTodayList(from: number): Promise<number[]>{
+    let now = new Date().getFullYear();
+    if (from > now){
+        return [now];
+    }
+    let array = [];
+    for (let i = from; i <= now; i++){
+        array.push(i);
+    }
+    return array;
 }
