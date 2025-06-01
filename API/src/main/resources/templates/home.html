@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"></html>
+<head>
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <div th:replace="~{fragments/logo :: logo}"></div>
+    <h1 th:text="${name}">
+    </h1>
+</body>
