@@ -93,7 +93,6 @@
 <dependency>
     <groupId>org.springframework.security</groupId>
     <artifactId>spring-security-oauth2-client</artifactId>
-    <version>6.5.0</version>
 </dependency>
 
     <dependency>
@@ -103,6 +102,21 @@
 	<dependency>
     <groupId>org.springframework.security</groupId>
     <artifactId>spring-security-oauth2-jose</artifactId>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
+<dependency>
+    <groupId>org.flywaydb</groupId>
+    <artifactId>flyway-core</artifactId>
+    <version>11.8.2</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-database-postgresql -->
+<dependency>
+    <groupId>org.flywaydb</groupId>
+    <artifactId>flyway-database-postgresql</artifactId>
+    <version>11.8.2</version>
+    <scope>runtime</scope>
 </dependency>
 	</dependencies>
 
