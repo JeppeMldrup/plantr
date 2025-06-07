@@ -1,0 +1,29 @@
+:root{
+    --sage: rgb(231, 239, 199);
+    --green: rgb(174, 200, 164);
+    --brown: rgb(138, 120, 78);
+    --earth: rgb(59, 59, 26);
+    --gradient1: linear-gradient(0deg, var(--green) 0%, var(--sage) 80%);
+}
+
+body {
+    background: var(--gradient1);
+    color: var(--earth);
+    height: 100dvh;
+}
+
+header > nav {
+    display: flex;
+    justify-content: space-between;
+    a {
+        padding: 1rem;
+    }
+}
+
+.garden {
+    font-size: xx-large;
+}
+
+.tally {
+    font-size: xx-large;
+}
