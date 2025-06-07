@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<body>
+    <form th:fragment="harvest_form">
+        <select name="vegetable"  hx->
+            <option th:each="vegetable: ${vegetables}" th:text="${vegetable.name}">
+
+            </option>
+        </select>
+    </form>
+</body>

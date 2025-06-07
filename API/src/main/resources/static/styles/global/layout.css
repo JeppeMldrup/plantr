@@ -1,23 +1,38 @@
 :root{
+    --offwhite: rgb(242, 240, 239);
     --sage: rgb(231, 239, 199);
     --green: rgb(174, 200, 164);
     --brown: rgb(138, 120, 78);
     --earth: rgb(59, 59, 26);
-    --gradient1: linear-gradient(0deg, var(--green) 0%, var(--sage) 80%);
+    --gradient1: linear-gradient(0deg, var(--sage) 30%, var(--offwhite) 100%);
 }
 
 body {
-    background: var(--gradient1);
+    background: var(--sage);
     color: var(--earth);
     height: 100dvh;
+    width: 100dvw;
+    padding: 0;
+    margin: 0;
 }
 
 header > nav {
     display: flex;
     justify-content: space-between;
+    border-bottom: 2px;
+    border-color: var(--green);
     a {
         padding: 1rem;
     }
+}
+
+article {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: min(80%, 45rem);
+    align-items: center;
+    background: var(--offwhite);
 }
 
 .garden {

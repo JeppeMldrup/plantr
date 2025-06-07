@@ -7,4 +7,5 @@ import com.gardentally.API.Entities.Users;
 
 @Repository
 public interface UsersRepository extends JpaRepository<Users, Long>{
+    Users findUsersByEmail(String email);
 }

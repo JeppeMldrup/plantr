@@ -1,6 +1,7 @@
 package com.gardentally.API.Entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,6 +33,17 @@ public class Veg{
     @ManyToOne
     @JoinColumn(name = "garden_id")
     private Garden garden;
+
+    @OneToMany
+    private List<Harvest> harvests;
+
+    public List<Harvest> getHarvests(){
+        return harvests;
+    }
+
+    public void setHarvests(List<Harvest> harvests){
+        this.harvests = harvests;
+    }
 
     public Long getId(){
         return id;
