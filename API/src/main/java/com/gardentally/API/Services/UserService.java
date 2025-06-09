@@ -1,6 +1,7 @@
 package com.gardentally.API.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getUser(String email){
-        return userRepository.findUsersByEmail(email);
+    public Optional<User> getUserFromOauthid(String oauthid){
+        return userRepository.findByOauthid(oauthid);
     }
 }

@@ -2,9 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org"></html>
 <head>
     <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+    <link th:href="@{/styles/global/layout.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <h1>
-        Logged in
-    </h1>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <article id="content">
+        <div th:replace="~{__${fragment}__}">Loading...</div>
+    </article>
 </body>

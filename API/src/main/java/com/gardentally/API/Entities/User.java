@@ -20,8 +20,8 @@ public class User{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "oauthid", unique = true)
+    private String oauthid;
 
     @ManyToMany
     @JoinTable(
@@ -39,12 +39,12 @@ public class User{
         this.id = id;
     }
 
-    public String getEmail(){
-        return email;
+    public String getOauthid(){
+        return oauthid;
     }
 
-    public void setEmail(String email){
-        this.email = email;
+    public void setOauthid(String email){
+        this.oauthid = email;
     }
 
     public Set<Garden> getGardens(){

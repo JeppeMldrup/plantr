@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div th:fragment="gardens_body">
+        <div th:each="garden: ${gardens}">
+            <h1 th:text="${garden.name}"></h1>
+        </div>
+        <div hx-get="/gardens/new" hx-swap="outerHTML" hx-trigger="click">
+            <h1>Click to add new garden</h1>
+        </div>
+    </div>
+
+    <form th:fragment="gardens_form" hx-boost="true" hx-post="/gardens/new">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <label for="name">Garden name:</label>
+        <input type="text" name="name">
+        <input type="submit" name="submit">
+    </form>
+</body>
+</html>
