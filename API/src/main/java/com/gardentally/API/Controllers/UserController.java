@@ -10,27 +10,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gardentally.API.Entities.Users;
-import com.gardentally.API.Services.UsersService;
+import com.gardentally.API.Entities.User;
+import com.gardentally.API.Services.UserService;
 
 @RestController
 @RequestMapping("/api/users")
-public class UsersController {
-    private final UsersService usersService;
+public class UserController {
+    private final UserService userService;
 
     @Autowired
-    public UsersController(UsersService usersService){
-        this.usersService = usersService;
+    public UserController(UserService userService){
+        this.userService = userService;
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Users> addUser(@RequestBody Users user){
-        Users newUser = usersService.addUser(user);
+    public ResponseEntity<User> addUser(@RequestBody User user){
+        User newUser = userService.addUser(user);
         return ResponseEntity.ok(newUser);
     }
 
     @GetMapping("/get")
-    public List<Users> getAllUsers() {
-        return usersService.getAllUsers();
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 }

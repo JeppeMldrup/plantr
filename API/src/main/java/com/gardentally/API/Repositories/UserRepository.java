@@ -3,9 +3,9 @@ package com.gardentally.API.Repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.gardentally.API.Entities.Users;
+import com.gardentally.API.Entities.User;
 
 @Repository
-public interface UsersRepository extends JpaRepository<Users, Long>{
-    Users findUsersByEmail(String email);
+public interface UserRepository extends JpaRepository<User, Long>{
+    User findUsersByEmail(String email);
 }

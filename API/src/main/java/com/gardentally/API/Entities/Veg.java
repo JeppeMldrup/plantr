@@ -34,7 +34,7 @@ public class Veg{
     @JoinColumn(name = "garden_id")
     private Garden garden;
 
-    @OneToMany
+    @OneToMany(mappedBy = "veg")
     private List<Harvest> harvests;
 
     public List<Harvest> getHarvests(){

@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.gardentally.API.Repositories.UsersRepository;
 import com.gardentally.API.Repositories.VegRepository;
+import com.gardentally.API.Services.UserService;
 
 @Controller
 @RequestMapping("/")
@@ -19,7 +19,7 @@ public class PageController {
     VegRepository vegRepository;
 
     @Autowired
-    UsersRepository usersRepository;
+    UserService userService;
     
     @GetMapping
     public String getIndex(Model model){
@@ -40,9 +40,6 @@ public class PageController {
 
     @GetMapping("/harvest")
     public String getHarvest(Model model, @AuthenticationPrincipal OAuth2User user){
-        model.addAttribute("vegetables",
-            vegRepository.findVegByGardenId(
-                usersRepository.findUsersByEmail(user.getAttribute("email")).getGarden().getId()));
         return "add_harvest";
     }
 
@@ -53,9 +50,7 @@ public class PageController {
 
     @GetMapping("/garden")
     public String getGarden(Model model, @AuthenticationPrincipal OAuth2User user){
-        if (usersRepository.findUsersByEmail(user.getAttribute("email")).getGarden() == null){
-            return "redirect:creategarden";
-        }
+        var userEntity = userService.getUser(user.getAttribute("email"));
         return "garden";
     }
 }

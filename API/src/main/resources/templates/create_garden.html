@@ -6,9 +6,12 @@
 </head>
 <body>
     <div th:replace="~{fragments/header :: header}"></div>
+
     <article>
-        <div th:replace="~{fragments/logo :: logo}"></div>
-        <h1 th:text="${name}">
-        </h1>
+        <form hx-boost="true" action="/api/garden/create" method="post">
+            <label for="gardenname">Garden name:</label>
+            <input type="text" id="gardenname" name="name">
+            <input type="submit" value="Create garden">
+        </form>
     </article>
 </body>

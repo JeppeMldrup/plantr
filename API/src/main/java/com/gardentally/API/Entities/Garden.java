@@ -1,12 +1,15 @@
 package com.gardentally.API.Entities;
 
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -21,25 +24,30 @@ public class Garden{
     @Column(name = "name")
     private String name;
 
-    @OneToMany
-    private List<Veg> vegetables;
+    @OneToMany(mappedBy = "garden")
+    private Set<Veg> vegetables;
 
-    @OneToMany
-    private List<Users> users;
+    @ManyToMany
+    @JoinTable(
+        name = "user_garden",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "garden_id")
+    )
+    private Set<User> users;
 
-    public List<Users> getUsers(){
+    public Set<User> getUsers(){
         return users;
     }
 
-    public void setUsers(List<Users> users){
+    public void setUsers(Set<User> users){
         this.users = users;
     }
 
-    public List<Veg> getVegetables(){
+    public Set<Veg> getVegetables(){
         return vegetables;
     }
 
-    public void setVegetables(List<Veg> vegetables){
+    public void setVegetables(Set<Veg> vegetables){
         this.vegetables = vegetables;
     }
 
