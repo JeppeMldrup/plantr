@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.gardentally.API.Entities.User;
@@ -24,6 +25,10 @@ public class UserService {
 
     public List<User> getAllUsers(){
         return userRepository.findAll();
+    }
+
+    public Optional<User> getUserFromOauthUser(OAuth2User user){
+        return getUserFromOauthid(user.getAttribute("sub"));
     }
 
     public Optional<User> getUserFromOauthid(String oauthid){

@@ -58,7 +58,8 @@ public class GardenController {
     public String postNewGarden(HttpServletRequest request, Model model, @AuthenticationPrincipal OAuth2User user){
         System.out.print(request);
         String name = request.getParameter("name");
-        var userEntity = userService.getUserFromOauthid(user.getAttribute("sub"));
+        var userEntity = userService.getUserFromOauthUser(user);
+        
         if (name.isEmpty() || userEntity.isEmpty()){
             return "";
         }
