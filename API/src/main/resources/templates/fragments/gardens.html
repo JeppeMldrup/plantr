@@ -3,7 +3,9 @@
 <body>
     <div th:fragment="gardens_body">
         <div th:each="garden: ${gardens}">
-            <h1 th:text="${garden.name}"></h1>
+            <a hx-boost="true" th:href="@{/gardens/{id}(id=${garden.id})}" hx-target="#content" >
+                <h1 th:text="${garden.name}"></h1>
+            </a>
         </div>
         <div hx-get="/gardens/new" hx-swap="outerHTML" hx-trigger="click">
             <h1>Click to add new garden</h1>

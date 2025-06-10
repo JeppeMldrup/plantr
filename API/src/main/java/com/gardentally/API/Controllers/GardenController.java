@@ -1,10 +1,13 @@
 package com.gardentally.API.Controllers;
 
+import java.util.stream.Collectors;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -29,8 +32,7 @@ public class GardenController {
     
     @GetMapping
     public String getGarden(HttpServletRequest request, Model model, @AuthenticationPrincipal OAuth2User user){
-        String oauthid = user.getAttribute("sub");
-        var userEntity = userService.getUserFromOauthid(oauthid);
+        var userEntity = userService.getUserFromOauthUser(user);
 
         if (userEntity.isPresent()){
             model.addAttribute("gardens", userEntity.get().getGardens());
@@ -59,7 +61,7 @@ public class GardenController {
         System.out.print(request);
         String name = request.getParameter("name");
         var userEntity = userService.getUserFromOauthUser(user);
-        
+
         if (name.isEmpty() || userEntity.isEmpty()){
             return "";
         }
@@ -67,5 +69,21 @@ public class GardenController {
         var garden = gardenService.createGardenForUser(name, userEntity.get());
         model.addAttribute("gardens", garden);
         return "fragments/gardens :: gardens_body";
+    }
+
+    @GetMapping("/{id}")
+    public String getGardenWithId(@PathVariable("id") Long id, HttpServletRequest request, Model model, @AuthenticationPrincipal OAuth2User user){
+        var garden = gardenService.getGardenFromId(id);
+
+        if (garden.isPresent()){
+            model.addAttribute("gardens", garden.get());
+        }
+
+        if (requestService.htmxrequest(request)){
+            return "fragments/gardens :: gardens_body";
+        }
+
+        model.addAttribute("fragment", "fragments/gardens :: gardens_body");
+        return "layout";
     }
 }

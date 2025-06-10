@@ -1,5 +1,7 @@
 package com.gardentally.API.Services;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.gardentally.API.Entities.Garden;
@@ -19,5 +21,9 @@ public class GardenService {
         garden.setName(name);
         userEntity.getGardens().add(garden);
         return gardenRepository.save(garden);
+    }
+
+    public Optional<Garden> getGardenFromId(Long id){
+        return gardenRepository.findById(id);
     }
 }
