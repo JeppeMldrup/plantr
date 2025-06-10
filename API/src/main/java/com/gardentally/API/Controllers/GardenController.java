@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gardentally.API.Services.GardenService;
+import com.gardentally.API.Services.RequestService;
 import com.gardentally.API.Services.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,10 +19,12 @@ import jakarta.servlet.http.HttpServletRequest;
 public class GardenController {
     private final GardenService gardenService;
     private final UserService userService;
+    private final RequestService requestService;
 
-    public GardenController(GardenService gardenService, UserService userService){
+    public GardenController(GardenService gardenService, UserService userService, RequestService requestService){
         this.gardenService = gardenService;
         this.userService = userService;
+        this.requestService = requestService;
     }
     
     @GetMapping
@@ -33,7 +36,7 @@ public class GardenController {
             model.addAttribute("gardens", userEntity.get().getGardens());
         }
 
-        if ("true".equals(request.getHeader("HX-Request"))){
+        if (requestService.htmxrequest(request)){
             return "fragments/gardens :: gardens_body";
         }
 
@@ -43,7 +46,7 @@ public class GardenController {
 
     @GetMapping("/new")
     public String getGardenForm(HttpServletRequest request, Model model, @AuthenticationPrincipal OAuth2User user){
-        if ("true".equals(request.getHeader("HX-Request"))){
+        if (requestService.htmxrequest(request)){
             return "fragments/gardens :: gardens_form";
         }
 

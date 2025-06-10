@@ -7,11 +7,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.gardentally.API.Services.RequestService;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/")
 public class PageController {
+    private final RequestService requestService;
+
+    public PageController(RequestService requestService){
+        this.requestService = requestService;
+    }
+
     @GetMapping
     public String getIndex(Model model){
         model.addAttribute("name", "Welcome to your garden!");
@@ -28,9 +36,10 @@ public class PageController {
     public String getHome(HttpServletRequest request, Model model, @AuthenticationPrincipal OAuth2User user){
         model.addAttribute("name", user.getAttribute("email"));
 
-        if ("true".equals(request.getHeader("HX-Request"))){
+        if (requestService.htmxrequest(request)){
             return "fragments/home :: home_body";
         }
+        
         model.addAttribute("fragment", "fragments/home :: home_body");
         return "layout";
     }

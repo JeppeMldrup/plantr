@@ -1,7 +1,5 @@
 package com.gardentally.API.Services;
 
-import java.util.Set;
-
 import org.springframework.stereotype.Service;
 
 import com.gardentally.API.Entities.Garden;
