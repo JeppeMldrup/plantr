@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div th:fragment="vegetables_body">
+        <div th:each="vegetable: ${vegetables}">
+            <a hx-boost="true" th:href="@{/gardens/{garden_id}/vegetables/{vegid}(garden_id=${garden_id}, vegid=${vegetable.id})}" hx-target="#content" >
+                <h1 th:text="${vegetable.name}"></h1>
+            </a>
+        </div>
+        <div th:hx-get="@{/gardens/{garden_id}/vegetables/new(garden_id=${garden_id})}" hx-swap="outerHTML" hx-trigger="click">
+            <h1>Click to add new vegetable</h1>
+        </div>
+    </div>
+
+    <form th:fragment="vegetable_form" hx-boost="true" th:hx-post="@{/gardens/{id}/vegetables/new(id=${garden_id})}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <label for="name">Vegetable name:</label>
+        <input type="text" name="name">
+        <label for="plantingdate">Planting date:</label>
+        <input type="date" name="plantingdate">
+        <input type="submit" name="submit">
+    </form>
+</body>
+</html>
