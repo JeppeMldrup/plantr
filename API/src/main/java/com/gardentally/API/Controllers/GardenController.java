@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gardentally.API.Services.GardenService;
+import com.gardentally.API.Services.InviteService;
 import com.gardentally.API.Services.RequestService;
 import com.gardentally.API.Services.UserService;
 
@@ -23,11 +24,13 @@ public class GardenController {
     private final GardenService gardenService;
     private final UserService userService;
     private final RequestService requestService;
+    private final InviteService inviteService;
 
-    public GardenController(GardenService gardenService, UserService userService, RequestService requestService){
+    public GardenController(GardenService gardenService, UserService userService, RequestService requestService, InviteService inviteService){
         this.gardenService = gardenService;
         this.userService = userService;
         this.requestService = requestService;
+        this.inviteService = inviteService;
     }
     
     @GetMapping
@@ -76,14 +79,33 @@ public class GardenController {
         var garden = gardenService.getGardenFromId(id);
 
         if (garden.isPresent()){
-            model.addAttribute("gardens", garden.get());
+            model.addAttribute("garden", garden.get());
         }
 
         if (requestService.htmxrequest(request)){
-            return "fragments/gardens :: gardens_body";
+            return "fragments/garden :: garden";
         }
 
-        model.addAttribute("fragment", "fragments/gardens :: gardens_body");
+        model.addAttribute("fragment", "fragments/garden :: garden");
+        return "layout";
+    }
+
+    @PostMapping("/{id}/invite")
+    public String getInviteForGarden(@PathVariable("id") Long id, HttpServletRequest request, Model model, @AuthenticationPrincipal OAuth2User user){
+        var garden = gardenService.getGardenFromId(id);
+
+        if (garden.isEmpty() || !userService.userOwnsGarden(user, id)){
+            return "redirect:/gardens";
+        }
+
+        var invite = inviteService.getInviteCodeForGarden(garden.get());
+        model.addAttribute("invite", invite);
+        
+        if (requestService.htmxrequest(request)){
+            return "fragments/garden :: invite";
+        }
+
+        model.addAttribute("fragment", "fragments/garden :: invite");
         return "layout";
     }
 }

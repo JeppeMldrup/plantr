@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div th:fragment="garden">
+        <h1 th:text="${garden.name}"></h1>
+        <div>
+            <button hx-boost="true" th:hx-get="@{/gardens/{id}/vegetables(id=${garden.id})}" hx-target="#content">List of vegetables</button>
+       <form th:hx-post="@{/gardens/{id}/invite(id=${garden.id})}" hx-boost="true">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="submit">Generate Invite Code</button>
+        </form>
+    </div>
+    </div>
+
+    <div th:fragment="invite">
+        <span th:text="${invite.getId()}"></span>
+        <button>Copy</button>
+    </div>
+</body>
+</html>

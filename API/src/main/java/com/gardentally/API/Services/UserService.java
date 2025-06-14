@@ -31,6 +31,10 @@ public class UserService {
         return getUserFromOauthid(user.getAttribute("sub"));
     }
 
+    public Boolean userOwnsGarden(OAuth2User user, Long id){
+        return getUserFromOauthUser(user).get().getGardens().stream().anyMatch(garden -> garden.getId() == id);
+    }
+
     public Optional<User> getUserFromOauthid(String oauthid){
         return userRepository.findByOauthid(oauthid);
     }
