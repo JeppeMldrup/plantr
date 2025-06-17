@@ -1,5 +1,6 @@
 package com.gardentally.API.Controllers;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -39,8 +40,13 @@ public class PageController {
         if (requestService.htmxrequest(request)){
             return "fragments/home :: home_body";
         }
-        
+
         model.addAttribute("fragment", "fragments/home :: home_body");
         return "layout";
+    }
+
+    @GetMapping("/empty")
+    public ResponseEntity<Object> getEmpty(){
+        return ResponseEntity.ok().build();
     }
 }

@@ -4,12 +4,13 @@
     <div th:fragment="garden">
         <h1 th:text="${garden.name}"></h1>
         <div>
-        <button th:hx-get="@{/gardens/{id}/vegetables(id=${garden.id})}" hx-target="#content" hx-push-url="true">List of vegetables</button>
-        <form th:hx-post="@{/gardens/{id}/invite(id=${garden.id})}" hx-boost="true" hx-swap="outerHTML">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-            <button type="submit">Generate Invite Code</button>
-        </form>
-    </div>
+            <button th:hx-get="@{/gardens/{id}/vegetables(id=${garden.id})}" hx-target="#content" hx-push-url="true">List of vegetables</button>
+            <button th:hx-get="@{/gardens/{id}/harvest/new(id=${garden.id})}" hx-target="#content" hx-push-url="true">Add harvest</button>
+            <form th:hx-post="@{/gardens/{id}/invite(id=${garden.id})}" hx-boost="true" hx-swap="outerHTML">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <button type="submit">Generate Invite Code</button>
+            </form>
+        </div>
     </div>
 
     <div th:fragment="invite">

@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <form th:fragment="harvest_form">
-        <select name="vegetable"  hx->
-            <option th:each="vegetable: ${vegetables}" th:text="${vegetable.name}">
+    <div th:fragment="form_with_confirmation">
+        <div th:replace="~{fragments/harvest :: harvest_form}"></div>
+        <div th:replace="~{fragments/harvest :: confirmation}"></div>
+    </div>
 
+    <form th:fragment="harvest_form" hx-boost="true" th:hx-post="@{/gardens/{id}/harvest/new(id=${garden_id})}">
+        <label for="vegetable">Select vegetable:</label>
+        <select name="vegetable">
+            <option th:each="vegetable: ${vegetables}" th:text="${vegetable.name}">
             </option>
         </select>
+        <label for="harvest_date">Harvest date:</label>
+        <input type="date" th:value="${today}" name="harvest_date">
+        <label for="amount">Amount:</label>
+        <input type="number" min="1" name="amount">
+        <label for="weight">Weight in grams:</label>
+        <input type="number" min="1" name="weight">
+        <label for="add_harvest">Add harvest:</label>
+        <input type="submit" name="add_harvest">
     </form>
+
+    <div th:fragment="confirmation" hx-get="/empty" hx-trigger="load:2s">
+        <h1>Successfully added harvest</h1>
+    </div>
 </body>
 </html>
