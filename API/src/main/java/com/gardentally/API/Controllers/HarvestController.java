@@ -1,5 +1,6 @@
 package com.gardentally.API.Controllers;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gardentally.API.Services.GardenService;
+import com.gardentally.API.Services.HarvestService;
 import com.gardentally.API.Services.RequestService;
 import com.gardentally.API.Services.UserService;
 import com.gardentally.API.Services.VegetableService;
@@ -28,12 +31,14 @@ public class HarvestController {
     private final UserService userService;
     private final RequestService requestService;
     private final VegetableService vegetableService;
+    private final HarvestService harvestService;
 
-    public HarvestController(GardenService gardenService, UserService userService, RequestService requestService, VegetableService vegetableService){
+    public HarvestController(GardenService gardenService, UserService userService, RequestService requestService, VegetableService vegetableService, HarvestService harvestService){
         this.gardenService = gardenService;
         this.userService = userService;
         this.requestService = requestService;
         this.vegetableService = vegetableService;
+        this.harvestService = harvestService;
     }
     
     @GetMapping("/new")
@@ -57,10 +62,30 @@ public class HarvestController {
     }
 
     @PostMapping("/new")
-    public String getVegetableCreationForm(@PathVariable("id") Long id, HttpServletRequest request, Model model, @AuthenticationPrincipal OAuth2User user){
+    public String getVegetableCreationForm(
+        @PathVariable("id") Long id,
+        @RequestParam("vegetable") Long vegetable,
+        @RequestParam("harvest_date") LocalDate harvest_date,
+        @RequestParam("weight") BigDecimal weight,
+        @RequestParam("amount") Long amount, 
+        HttpServletRequest request,
+        Model model,
+        @AuthenticationPrincipal OAuth2User user
+    ){
         var garden = gardenService.getGardenFromId(id);
 
         if (garden.isEmpty() || !userService.userOwnsGarden(user, id)){
+            return "redirect:/gardens";
+        }
+
+        var harvest = harvestService.createHarvestForVegetable(
+            vegetable,
+            harvest_date,
+            weight,
+            amount
+        );
+
+        if (harvest.isEmpty()){
             return "redirect:/gardens";
         }
 

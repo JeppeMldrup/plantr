@@ -53,7 +53,7 @@ public class Harvest{
         return weight;
     }
 
-    public void setStatus(BigDecimal weight){
+    public void setWeight(BigDecimal weight){
         this.weight = weight;
     }
 
