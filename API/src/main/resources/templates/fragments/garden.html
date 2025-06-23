@@ -14,8 +14,8 @@
     </div>
 
     <div th:fragment="invite">
-        <span th:text="${invite.getId()}"></span>
-        <button>Copy</button>
+        <span id="copy-from" th:text="${invite.id}"></span>
+        <button th:onclick="navigator.clipboard.writeText(document.getElementById('copy-from').textContent)">Copy</button>
     </div>
 </body>
 </html>
