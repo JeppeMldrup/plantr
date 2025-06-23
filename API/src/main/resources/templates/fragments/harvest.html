@@ -23,8 +23,10 @@
         <input type="submit" name="add_harvest">
     </form>
 
-    <div th:fragment="confirmation" hx-get="/empty" hx-trigger="load delay:1s" hx-swap="outerHTML">
-        <h1>Successfully added harvest</h1>
+    <div th:fragment="confirmation" hx-swap-oob="beforeend:#notification-track">
+        <div hx-get="/empty" hx-trigger="load delay:1s" hx-swap="outerHTML">
+            <h1>Successfully added harvest</h1>
+        </div>
     </div>
 </body>
 </html>
