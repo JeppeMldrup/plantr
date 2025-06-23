@@ -10,15 +10,13 @@ import com.gardentally.API.Entities.Harvest;
 import com.gardentally.API.Repositories.HarvestRepository;
 import com.gardentally.API.Repositories.VegRepository;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class HarvestService {
     private final HarvestRepository harvestRepository;
     private final VegRepository vegRepository;
-
-    public HarvestService(HarvestRepository harvestRepository, VegRepository vegRepository){
-        this.harvestRepository = harvestRepository;
-        this.vegRepository = vegRepository;
-    }
 
     public Optional<Harvest> createHarvestForVegetable(Long veg_id, LocalDate harvest_date, BigDecimal weight, Long amount){
         var harvest = new Harvest();

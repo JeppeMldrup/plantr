@@ -1,9 +1,6 @@
 package com.gardentally.API.Controllers;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -22,7 +19,9 @@ import com.gardentally.API.Services.VegetableService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotBlank;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/gardens/{id}/vegetables")
 public class VegetableController {
@@ -30,13 +29,6 @@ public class VegetableController {
     private final UserService userService;
     private final RequestService requestService;
     private final VegetableService vegetableService;
-
-    public VegetableController(GardenService gardenService, UserService userService, RequestService requestService, VegetableService vegetableService){
-        this.gardenService = gardenService;
-        this.userService = userService;
-        this.requestService = requestService;
-        this.vegetableService = vegetableService;
-    }
     
     @GetMapping
     public String getGarden(@PathVariable("id") Long id, HttpServletRequest request, Model model, @AuthenticationPrincipal OAuth2User user){

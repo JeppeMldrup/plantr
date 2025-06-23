@@ -11,15 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.gardentally.API.Services.RequestService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/")
 public class PageController {
     private final RequestService requestService;
-
-    public PageController(RequestService requestService){
-        this.requestService = requestService;
-    }
 
     @GetMapping
     public String getIndex(Model model){

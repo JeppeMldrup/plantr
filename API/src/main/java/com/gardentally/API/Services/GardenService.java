@@ -8,13 +8,12 @@ import com.gardentally.API.Entities.Garden;
 import com.gardentally.API.Entities.User;
 import com.gardentally.API.Repositories.GardenRepository;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class GardenService {
     private final GardenRepository gardenRepository;
-
-    public GardenService(GardenRepository gardenRepository){
-        this.gardenRepository = gardenRepository;
-    }
 
     public Garden createGardenForUser(String name, User userEntity){
         var garden = new Garden();

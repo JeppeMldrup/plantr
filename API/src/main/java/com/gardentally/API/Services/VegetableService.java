@@ -8,13 +8,12 @@ import com.gardentally.API.Entities.Garden;
 import com.gardentally.API.Entities.Veg;
 import com.gardentally.API.Repositories.VegRepository;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class VegetableService {
     private final VegRepository vegRepository;
-
-    public VegetableService(VegRepository vegRepository){
-        this.vegRepository = vegRepository;
-    }
 
     public Veg createNewVegForGarden(String name, LocalDate plantingDate, Garden garden){
         var veg = new Veg();

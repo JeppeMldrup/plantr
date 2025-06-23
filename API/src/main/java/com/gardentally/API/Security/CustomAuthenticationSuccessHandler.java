@@ -13,15 +13,13 @@ import com.gardentally.API.Repositories.UserRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    private UserRepository userRepository;
-
-    public CustomAuthenticationSuccessHandler(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
+    private final UserRepository userRepository;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,

@@ -8,16 +8,15 @@ import com.gardentally.API.Entities.Garden;
 import com.gardentally.API.Entities.Invite;
 import com.gardentally.API.Repositories.InviteRepository;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class InviteService {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final int CODE_LENGTH = 6;
     private static final SecureRandom random = new SecureRandom();
     private final InviteRepository inviteRepository;
-
-    public InviteService(InviteRepository inviteRepository){
-        this.inviteRepository = inviteRepository;
-    }
 
     private static String generateInviteCode() {
         StringBuilder code = new StringBuilder(CODE_LENGTH);

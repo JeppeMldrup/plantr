@@ -20,27 +20,18 @@ import com.gardentally.API.Services.GardenService;
 import com.gardentally.API.Services.HarvestService;
 import com.gardentally.API.Services.RequestService;
 import com.gardentally.API.Services.UserService;
-import com.gardentally.API.Services.VegetableService;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.constraints.NotEmpty;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/gardens/{id}/harvest")
 public class HarvestController {
     private final GardenService gardenService;
     private final UserService userService;
     private final RequestService requestService;
-    private final VegetableService vegetableService;
     private final HarvestService harvestService;
-
-    public HarvestController(GardenService gardenService, UserService userService, RequestService requestService, VegetableService vegetableService, HarvestService harvestService){
-        this.gardenService = gardenService;
-        this.userService = userService;
-        this.requestService = requestService;
-        this.vegetableService = vegetableService;
-        this.harvestService = harvestService;
-    }
     
     @GetMapping("/new")
     public String getHarvestForm(@PathVariable("id") Long id, HttpServletRequest request, Model model, @AuthenticationPrincipal OAuth2User user){

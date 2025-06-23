@@ -1,7 +1,5 @@
 package com.gardentally.API.Controllers;
 
-import java.util.stream.Collectors;
-
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -19,7 +17,9 @@ import com.gardentally.API.Services.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotBlank;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/gardens")
 public class GardenController {
@@ -27,13 +27,6 @@ public class GardenController {
     private final UserService userService;
     private final RequestService requestService;
     private final InviteService inviteService;
-
-    public GardenController(GardenService gardenService, UserService userService, RequestService requestService, InviteService inviteService){
-        this.gardenService = gardenService;
-        this.userService = userService;
-        this.requestService = requestService;
-        this.inviteService = inviteService;
-    }
     
     @GetMapping
     public String getGarden(HttpServletRequest request, Model model, @AuthenticationPrincipal OAuth2User user){
