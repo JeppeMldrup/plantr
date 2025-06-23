@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gardentally.API.Services.GardenService;
 import com.gardentally.API.Services.InviteService;
@@ -17,6 +18,7 @@ import com.gardentally.API.Services.RequestService;
 import com.gardentally.API.Services.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.constraints.NotBlank;
 
 @Controller
 @RequestMapping("/gardens")
@@ -60,13 +62,17 @@ public class GardenController {
     }
 
     @PostMapping("/new")
-    public String postNewGarden(HttpServletRequest request, Model model, @AuthenticationPrincipal OAuth2User user){
+    public String postNewGarden(
+        @RequestParam("name") @NotBlank String name,
+        HttpServletRequest request,
+        Model model,
+        @AuthenticationPrincipal OAuth2User user
+    ){
         System.out.print(request);
-        String name = request.getParameter("name");
         var userEntity = userService.getUserFromOauthUser(user);
 
-        if (name.isEmpty() || userEntity.isEmpty()){
-            return "";
+        if (userEntity.isEmpty()){
+            return "redirect:/";
         }
 
         var garden = gardenService.createGardenForUser(name, userEntity.get());
