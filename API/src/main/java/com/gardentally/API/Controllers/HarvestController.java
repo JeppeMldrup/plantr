@@ -1,10 +1,7 @@
 package com.gardentally.API.Controllers;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
