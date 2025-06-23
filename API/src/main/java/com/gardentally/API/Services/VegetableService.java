@@ -16,17 +16,12 @@ public class VegetableService {
         this.vegRepository = vegRepository;
     }
 
-    public Veg createNewVegForGarden(String name, String plantingDate, Garden garden){
+    public Veg createNewVegForGarden(String name, LocalDate plantingDate, Garden garden){
         var veg = new Veg();
         veg.setGarden(garden);
         veg.setName(name);
         veg.setStatus("alive");
-        if (plantingDate == null || plantingDate.isEmpty()){
-            veg.setPlantingDate(LocalDate.now());
-        }
-        else{
-            veg.setPlantingDate(LocalDate.parse(plantingDate));
-        }
+        veg.setPlantingDate(plantingDate);
         return vegRepository.save(veg);
     }
 }

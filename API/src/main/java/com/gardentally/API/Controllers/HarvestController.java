@@ -23,6 +23,7 @@ import com.gardentally.API.Services.UserService;
 import com.gardentally.API.Services.VegetableService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.constraints.NotEmpty;
 
 @Controller
 @RequestMapping("/gardens/{id}/harvest")
