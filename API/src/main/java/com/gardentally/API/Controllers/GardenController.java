@@ -67,7 +67,6 @@ public class GardenController {
 
         if (garden.isEmpty()){
             model.addAttribute("notification_message", "Invite code is invalid");
-            //model.addAttribute("fragment", "fragments/gardens :: join_gardens_form");
             return "fragments/notification :: combinedNotification(fragment='fragments/gardens :: join_gardens_form')";
         }
 

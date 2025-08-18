@@ -9,7 +9,6 @@ import com.gardentally.API.Entities.Garden;
 import com.gardentally.API.Entities.Invite;
 import com.gardentally.API.Repositories.InviteRepository;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
