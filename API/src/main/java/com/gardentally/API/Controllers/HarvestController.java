@@ -42,12 +42,7 @@ public class HarvestController {
         model.addAttribute("garden_id", id);
         model.addAttribute("today", LocalDate.now().toString());
 
-        if (requestService.htmxrequest(request)){
-            return "fragments/harvest :: harvest_form";
-        }
-
-        model.addAttribute("fragment", "fragments/harvest :: harvest_form");
-        return "layout";
+        return requestService.fragmentOnHtmxRequest(request, model, "fragments/harvest :: harvest_form");
     }
 
     @PostMapping("/new")
@@ -78,11 +73,6 @@ public class HarvestController {
             return "redirect:/gardens";
         }
 
-        if (requestService.htmxrequest(request)){
-            return "fragments/harvest :: confirmation";
-        }
-
-        model.addAttribute("fragment", "fragments/harvest :: form_with_confirmation");
-        return "layout";
+        return requestService.fragmentOnHtmxRequest(request, model, "fragments/harvest :: confirmation");
     }
 }

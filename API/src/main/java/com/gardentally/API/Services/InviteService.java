@@ -1,6 +1,7 @@
 package com.gardentally.API.Services;
 
 import java.security.SecureRandom;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -8,6 +9,7 @@ import com.gardentally.API.Entities.Garden;
 import com.gardentally.API.Entities.Invite;
 import com.gardentally.API.Repositories.InviteRepository;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -17,6 +19,7 @@ public class InviteService {
     private static final int CODE_LENGTH = 6;
     private static final SecureRandom random = new SecureRandom();
     private final InviteRepository inviteRepository;
+    public Object get;
 
     private static String generateInviteCode() {
         StringBuilder code = new StringBuilder(CODE_LENGTH);
@@ -42,6 +45,19 @@ public class InviteService {
         invite.setGarden(garden);
         invite.setId(inviteCode);
         return inviteRepository.save(invite);
+    }
+
+    public Optional<Garden> getGardenFromInviteCode(String inviteCode){
+        var invite = inviteRepository.findById(inviteCode);
+
+        return invite.map(a -> a.getGarden());
+    }
+
+    public void deleteInviteCode(String inviteCode) {
+        var invite = inviteRepository.findById(inviteCode);
+        if (invite.isPresent()){
+            inviteRepository.delete(invite.get());
+        }
     }
 }
 

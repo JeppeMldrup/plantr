@@ -36,23 +36,48 @@ public class GardenController {
             model.addAttribute("gardens", userEntity.get().getGardens());
         }
 
-        if (requestService.htmxrequest(request)){
-            return "fragments/gardens :: gardens_body";
-        }
-
-        model.addAttribute("fragment", "fragments/gardens :: gardens_body");
-        return "layout";
+        return requestService.fragmentOnHtmxRequest(request, model, "fragments/gardens :: gardens_body");
     }
 
     @GetMapping("/new")
     public String getGardenForm(HttpServletRequest request, Model model, @AuthenticationPrincipal OAuth2User user){
-        if (requestService.htmxrequest(request)){
-            return "fragments/gardens :: gardens_form";
+        return requestService.fragmentOnHtmxRequest(request, model, "fragments/gardens :: gardens_form");
+    }
+
+    @GetMapping("/join")
+    public String getGardenJoinForm(HttpServletRequest request, Model model, @AuthenticationPrincipal OAuth2User user){
+        return requestService.fragmentOnHtmxRequest(request, model, "fragments/gardens :: join_gardens_form");
+    }
+
+    @PostMapping("/join")
+    public String postJoinGardenWithInviteCode(
+        @RequestParam("code") @NotBlank String code,
+        HttpServletRequest request,
+        Model model,
+        @AuthenticationPrincipal OAuth2User user
+    ){
+        System.out.print(request);
+        var userEntity = userService.getUserFromOauthUser(user);
+
+        if (userEntity.isEmpty()){
+            return "redirect:/";
         }
 
-        model.addAttribute("fragment", "fragments/gardens :: gardens_form");
-        return "layout";
+        var garden = inviteService.getGardenFromInviteCode(code);
+
+        if (garden.isEmpty()){
+            model.addAttribute("notification_message", "Invite code is invalid");
+            //model.addAttribute("fragment", "fragments/gardens :: join_gardens_form");
+            return "fragments/notification :: combinedNotification(fragment='fragments/gardens :: join_gardens_form')";
+        }
+
+        gardenService.addUserToGarden(userEntity.get(), garden.get());
+        inviteService.deleteInviteCode(code);
+
+        model.addAttribute("gardens", garden);
+        return "fragments/gardens :: gardens_body";
     }
+
 
     @PostMapping("/new")
     public String postNewGarden(
@@ -81,12 +106,7 @@ public class GardenController {
             model.addAttribute("garden", garden.get());
         }
 
-        if (requestService.htmxrequest(request)){
-            return "fragments/garden :: garden";
-        }
-
-        model.addAttribute("fragment", "fragments/garden :: garden");
-        return "layout";
+        return requestService.fragmentOnHtmxRequest(request, model, "fragments/garden :: garden");
     }
 
     @PostMapping("/{id}/invite")
@@ -100,11 +120,6 @@ public class GardenController {
         var invite = inviteService.getInviteCodeForGarden(garden.get());
         model.addAttribute("invite", invite);
         
-        if (requestService.htmxrequest(request)){
-            return "fragments/garden :: invite";
-        }
-
-        model.addAttribute("fragment", "fragments/garden :: invite");
-        return "layout";
+        return requestService.fragmentOnHtmxRequest(request, model, "fragments/garden :: invite");
     }
 }

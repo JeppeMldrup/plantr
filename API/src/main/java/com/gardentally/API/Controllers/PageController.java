@@ -35,12 +35,7 @@ public class PageController {
     public String getHome(HttpServletRequest request, Model model, @AuthenticationPrincipal OAuth2User user){
         model.addAttribute("name", user.getAttribute("email"));
 
-        if (requestService.htmxrequest(request)){
-            return "fragments/home :: home_body";
-        }
-
-        model.addAttribute("fragment", "fragments/home :: home_body");
-        return "layout";
+        return requestService.fragmentOnHtmxRequest(request, model, "fragments/home :: home_body");
     }
 
     @GetMapping("/empty")

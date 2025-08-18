@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div th:fragment="notification(message)" hx-swap-oob="beforeend:#notification-track">
+        <div hx-get="/empty" hx-trigger="load delay:1s" hx-swap="outerHTML">
+            <h1 th:text="${notification_message}"></h1>
+        </div>
+    </div>
+
+    <div th:fragment="combinedNotification(fragment)">
+        <div th:replace="~{__${fragment}__}">Loading...</div>
+        <div th:replace="fragments/notification :: notification(message='${notification_message}')"></div>
+    </div>
+</body>
+</html>

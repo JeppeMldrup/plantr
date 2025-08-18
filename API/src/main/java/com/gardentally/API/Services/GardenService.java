@@ -2,6 +2,7 @@ package com.gardentally.API.Services;
 
 import java.util.Optional;
 
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.gardentally.API.Entities.Garden;
@@ -24,5 +25,10 @@ public class GardenService {
 
     public Optional<Garden> getGardenFromId(Long id){
         return gardenRepository.findById(id);
+    }
+
+    public void addUserToGarden(User user, Garden garden) {
+        user.getGardens().add(garden);
+        gardenRepository.save(garden);
     }
 }

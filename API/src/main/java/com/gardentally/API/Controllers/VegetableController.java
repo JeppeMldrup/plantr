@@ -41,12 +41,7 @@ public class VegetableController {
         model.addAttribute("vegetables", garden.get().getVegetables());
         model.addAttribute("garden_id", id);
 
-        if (requestService.htmxrequest(request)){
-            return "fragments/vegetables :: vegetables_body";
-        }
-
-        model.addAttribute("fragment", "fragments/vegetables :: vegetables_body");
-        return "layout";
+        return requestService.fragmentOnHtmxRequest(request, model, "fragments/vegetables :: vegetables_body");
     }
 
     @GetMapping("/new")
@@ -54,12 +49,7 @@ public class VegetableController {
         model.addAttribute("garden_id", id);
         model.addAttribute("today", LocalDate.now().toString());
 
-        if (requestService.htmxrequest(request)){
-            return "fragments/vegetables :: vegetable_form";
-        }
-
-        model.addAttribute("fragment", "fragments/vegetables :: vegetable_form");
-        return "layout";
+        return requestService.fragmentOnHtmxRequest(request, model, "fragments/vegetables :: vegetable_form");
     }
 
     @PostMapping("/new")
@@ -82,11 +72,6 @@ public class VegetableController {
         model.addAttribute("vegetables", veg);
         model.addAttribute("garden_id", id);
 
-        if (requestService.htmxrequest(request)){
-            return "fragments/vegetables :: vegetables_body";
-        }
-
-        model.addAttribute("fragment", "fragments/vegetables :: vegetables_body");
-        return "layout";
+        return requestService.fragmentOnHtmxRequest(request, model, "fragments/vegetables :: vegetables_body");
     }
 }
