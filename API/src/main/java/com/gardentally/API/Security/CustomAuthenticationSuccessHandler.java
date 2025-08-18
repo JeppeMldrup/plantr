@@ -25,9 +25,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-
         OAuth2User oauthUser = (OAuth2User) authentication.getPrincipal();
-
         String oauthid = oauthUser.getAttribute("sub");
 
         userRepository.findByOauthid(oauthid).orElseGet(() -> {
@@ -35,8 +33,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             user.setOauthid(oauthid);
             return userRepository.save(user);
         });
-
-        System.out.print(oauthid);
 
         response.sendRedirect("/");
     }

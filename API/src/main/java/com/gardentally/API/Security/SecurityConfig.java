@@ -16,14 +16,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(request -> request
+        return http.authorizeHttpRequests(request -> request
                 .requestMatchers("/login", "/styles/**").permitAll()
                 .anyRequest().authenticated()
             )
             .oauth2Login(oauth2 -> oauth2
 			    .loginPage("/login")
                 .successHandler(successHandler)
-            );
-        return http.build();
+            ).build();
     }
 }

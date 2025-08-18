@@ -18,7 +18,6 @@ public class InviteService {
     private static final int CODE_LENGTH = 6;
     private static final SecureRandom random = new SecureRandom();
     private final InviteRepository inviteRepository;
-    public Object get;
 
     private static String generateInviteCode() {
         StringBuilder code = new StringBuilder(CODE_LENGTH);
@@ -31,7 +30,7 @@ public class InviteService {
 
     public Invite getInviteCodeForGarden(Garden garden){
         var invites = inviteRepository.findAllByGarden(garden);
-
+;
         if (!invites.isEmpty()){
             return invites.getFirst();
         }
@@ -47,16 +46,11 @@ public class InviteService {
     }
 
     public Optional<Garden> getGardenFromInviteCode(String inviteCode){
-        var invite = inviteRepository.findById(inviteCode);
-
-        return invite.map(a -> a.getGarden());
+        return inviteRepository.findById(inviteCode).map(Invite::getGarden);
     }
 
     public void deleteInviteCode(String inviteCode) {
-        var invite = inviteRepository.findById(inviteCode);
-        if (invite.isPresent()){
-            inviteRepository.delete(invite.get());
-        }
+        inviteRepository.findById(inviteCode).ifPresent(inviteRepository::delete);
     }
 }
 
