@@ -20,5 +20,10 @@
         <input type="date"  th:value="${today}" name="plantingdate">
         <input type="submit" name="submit">
     </form>
+
+    <div th:fragment="vegetable_stats">
+        <p th:text="${weight}"></p>
+        <p th:text="${amount}"></p>
+    </div>
 </body>
 </html>

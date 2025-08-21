@@ -1,6 +1,7 @@
 package com.gardentally.API.Services;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,9 @@ public class VegetableService {
         veg.setStatus("alive");
         veg.setPlantingDate(plantingDate);
         return vegRepository.save(veg);
+    }
+
+    public Optional<Veg> getVegetableById(Long vegetable_id) {
+        return vegRepository.findById(vegetable_id);
     }
 }
